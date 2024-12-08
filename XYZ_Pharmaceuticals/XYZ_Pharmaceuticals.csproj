@@ -1,0 +1,145 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\animations.css" />
+    <None Include="wwwroot\css\bootstrap.min.css" />
+    <None Include="wwwroot\css\fonts.css" />
+    <None Include="wwwroot\css\main.css" />
+    <None Include="wwwroot\css\shop.css" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.eot%40" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.eot%40v=4.6.3" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.svg%40v=4.6.3" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.ttf%40v=4.6.3" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.woff%40v=4.6.3" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.woff2%40v=4.6.3" />
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.eot%40" />
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="wwwroot\fonts\rt-icons-2.eot%40" />
+    <None Include="wwwroot\fonts\rt-icons-2.eot%40wz19bt" />
+    <None Include="wwwroot\fonts\rt-icons-2.svg%40wz19bt" />
+    <None Include="wwwroot\fonts\rt-icons-2.ttf%40wz19bt" />
+    <None Include="wwwroot\fonts\rt-icons-2.woff%40wz19bt" />
+    <None Include="wwwroot\fonts\socicon.eot" />
+    <None Include="wwwroot\fonts\socicon.eot%40" />
+    <None Include="wwwroot\fonts\socicon.svg" />
+    <None Include="wwwroot\fonts\socicon.ttf" />
+    <None Include="wwwroot\fonts\socicon.woff" />
+    <None Include="wwwroot\images\banner.jpg" />
+    <None Include="wwwroot\images\blog_post1.jpg" />
+    <None Include="wwwroot\images\events\01.jpg" />
+    <None Include="wwwroot\images\events\02.jpg" />
+    <None Include="wwwroot\images\events\03.jpg" />
+    <None Include="wwwroot\images\events\04.jpg" />
+    <None Include="wwwroot\images\events\05.jpg" />
+    <None Include="wwwroot\images\events\06.jpg" />
+    <None Include="wwwroot\images\events\07.jpg" />
+    <None Include="wwwroot\images\events\08.jpg" />
+    <None Include="wwwroot\images\events\09.jpg" />
+    <None Include="wwwroot\images\faces\01.jpg" />
+    <None Include="wwwroot\images\faces\02.jpg" />
+    <None Include="wwwroot\images\faces\03.jpg" />
+    <None Include="wwwroot\images\faces\04.jpg" />
+    <None Include="wwwroot\images\faces\05.jpg" />
+    <None Include="wwwroot\images\faces\06.jpg" />
+    <None Include="wwwroot\images\faces\07.jpg" />
+    <None Include="wwwroot\images\gallery\01.jpg" />
+    <None Include="wwwroot\images\gallery\02.jpg" />
+    <None Include="wwwroot\images\gallery\03.jpg" />
+    <None Include="wwwroot\images\gallery\04.jpg" />
+    <None Include="wwwroot\images\gallery\05.jpg" />
+    <None Include="wwwroot\images\gallery\06.jpg" />
+    <None Include="wwwroot\images\gallery\07.jpg" />
+    <None Include="wwwroot\images\gallery\08.jpg" />
+    <None Include="wwwroot\images\gallery\09.jpg" />
+    <None Include="wwwroot\images\gallery\10.jpg" />
+    <None Include="wwwroot\images\gallery\11.jpg" />
+    <None Include="wwwroot\images\gallery\12.jpg" />
+    <None Include="wwwroot\images\gallery\13.jpg" />
+    <None Include="wwwroot\images\gallery\14.jpg" />
+    <None Include="wwwroot\images\gallery\15.jpg" />
+    <None Include="wwwroot\images\gallery\16.jpg" />
+    <None Include="wwwroot\images\gallery\19.jpg" />
+    <None Include="wwwroot\images\gallery\20.jpg" />
+    <None Include="wwwroot\images\gallery\21.jpg" />
+    <None Include="wwwroot\images\gallery\22.jpg" />
+    <None Include="wwwroot\images\gallery\23.jpg" />
+    <None Include="wwwroot\images\gallery\24.jpg" />
+    <None Include="wwwroot\images\gallery\25.jpg" />
+    <None Include="wwwroot\images\gallery\26.jpg" />
+    <None Include="wwwroot\images\logo-light.png" />
+    <None Include="wwwroot\images\logo1.png" />
+    <None Include="wwwroot\images\map_marker_icon.png" />
+    <None Include="wwwroot\images\partners\01.png" />
+    <None Include="wwwroot\images\partners\02.png" />
+    <None Include="wwwroot\images\partners\03.png" />
+    <None Include="wwwroot\images\partners\04.png" />
+    <None Include="wwwroot\images\partners\05.png" />
+    <None Include="wwwroot\images\partners\06.png" />
+    <None Include="wwwroot\images\partners\07.png" />
+    <None Include="wwwroot\images\partners\08.png" />
+    <None Include="wwwroot\images\partners\09.png" />
+    <None Include="wwwroot\images\quote_bg.jpg" />
+    <None Include="wwwroot\images\recent_post1.jpg" />
+    <None Include="wwwroot\images\recent_post2.jpg" />
+    <None Include="wwwroot\images\recent_post3.jpg" />
+    <None Include="wwwroot\images\shop\01.png" />
+    <None Include="wwwroot\images\shop\02.png" />
+    <None Include="wwwroot\images\shop\03.png" />
+    <None Include="wwwroot\images\shop\04.png" />
+    <None Include="wwwroot\images\shop\05.png" />
+    <None Include="wwwroot\images\shop\06.png" />
+    <None Include="wwwroot\images\side-image.jpg" />
+    <None Include="wwwroot\images\slide01.jpg" />
+    <None Include="wwwroot\images\slide02.jpg" />
+    <None Include="wwwroot\images\slide03.jpg" />
+    <None Include="wwwroot\images\status_bg.jpg" />
+    <None Include="wwwroot\images\team\01.jpg" />
+    <None Include="wwwroot\images\team\02.jpg" />
+    <None Include="wwwroot\images\team\03.jpg" />
+    <None Include="wwwroot\images\team\04.jpg" />
+    <None Include="wwwroot\images\team\05.jpg" />
+    <None Include="wwwroot\images\team\06.jpg" />
+    <None Include="wwwroot\img\aside_bg.jpg" />
+    <None Include="wwwroot\img\background_section.png" />
+    <None Include="wwwroot\img\loading.png" />
+    <None Include="wwwroot\img\owl.video.play.png" />
+    <None Include="wwwroot\img\parallax\404.jpg" />
+    <None Include="wwwroot\img\parallax\bottom.jpg" />
+    <None Include="wwwroot\img\parallax\features.jpg" />
+    <None Include="wwwroot\img\parallax\icon.png" />
+    <None Include="wwwroot\img\parallax\map-texture.png" />
+    <None Include="wwwroot\img\parallax\map.jpg" />
+    <None Include="wwwroot\img\parallax\pipeline.png" />
+    <None Include="wwwroot\img\parallax\testimonials.jpg" />
+    <None Include="wwwroot\img\parallax\top.jpg" />
+    <None Include="wwwroot\img\pattern1.png" />
+    <None Include="wwwroot\img\pattern10.png" />
+    <None Include="wwwroot\img\pattern11.png" />
+    <None Include="wwwroot\img\pattern2.png" />
+    <None Include="wwwroot\img\pattern3.png" />
+    <None Include="wwwroot\img\pattern4.png" />
+    <None Include="wwwroot\img\pattern5.png" />
+    <None Include="wwwroot\img\pattern6.png" />
+    <None Include="wwwroot\img\pattern7.png" />
+    <None Include="wwwroot\img\pattern8.png" />
+    <None Include="wwwroot\img\pattern9.png" />
+    <None Include="wwwroot\img\preloader.gif" />
+    <None Include="wwwroot\img\prettyPhoto\facebook\default_thumbnail.gif" />
+    <None Include="wwwroot\js\jquery.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+  </ItemGroup>
+
+</Project>
