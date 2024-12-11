@@ -19,5 +19,6 @@
         public int? FillingSpeed { get; set; }
         public float? FillingRange { get; set; }
         public string FillingType { get; set; }
+        public string? Image { get; set; }
     }
 }
