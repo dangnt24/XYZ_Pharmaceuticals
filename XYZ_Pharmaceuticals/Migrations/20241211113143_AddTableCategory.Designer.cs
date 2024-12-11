@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using XYZ_Pharmaceuticals.Models;
 
@@ -11,9 +12,11 @@ using XYZ_Pharmaceuticals.Models;
 namespace XYZ_Pharmaceuticals.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241211113143_AddTableCategory")]
+    partial class AddTableCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -203,12 +206,14 @@ namespace XYZ_Pharmaceuticals.Migrations
                         .HasColumnType("real");
 
                     b.Property<string>("CapsuleSize")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
                     b.Property<string>("Dies")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float?>("FillingRange")
@@ -218,12 +223,14 @@ namespace XYZ_Pharmaceuticals.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("FillingType")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MachineDimension")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float?>("MaxDepth")
@@ -236,9 +243,11 @@ namespace XYZ_Pharmaceuticals.Migrations
                         .HasColumnType("real");
 
                     b.Property<string>("ModelNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Output")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductName")

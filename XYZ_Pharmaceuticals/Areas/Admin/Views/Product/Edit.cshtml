@@ -7,14 +7,15 @@
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/admin/product"><i class="icon-home"></i></a></li>
                         <li class="breadcrumb-item">Product</li>
-                        <li class="breadcrumb-item active">Add Products</li>
+                        <li class="breadcrumb-item active">Edit Products</li>
                     </ul>
                 </div>
             </div>
         </div>
         @model XYZ_Pharmaceuticals.Entities.Product
 
-        <form id="productForm" action="/admin/product/create" method="post" enctype="multipart/form-data">
+        <form id="productForm" action="/admin/product/edit" method="post" enctype="multipart/form-data">
+            <input type="hidden" value="@Model.ID" name="ID" />
             <!-- Basic Product Information -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12">
@@ -27,14 +28,14 @@
                                 <!-- Product Name -->
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Enter Product Name (e.g., Vacuum Cleaner)" name="ProductName" />
+                                        <input type="text" class="form-control" placeholder="Product Name" name="ProductName" value="@Model.ProductName" />
                                     </div>
                                 </div>
 
                                 <!-- Output -->
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Enter Output (e.g., 500W)" name="Output" />
+                                        <input type="text" class="form-control" placeholder="Output" name="Output" value="@Model.Output" />
                                     </div>
                                 </div>
                             </div>
@@ -44,7 +45,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <select class="form-control show-tick" name="CategoryID" id="CategoryID" onchange="displayFields()" asp-for="CategoryID" asp-items="ViewBag.Categories">
-                                            <option>---Select Category---</option>
+                                          
                                         </select>
                                     </div>
                                 </div>
@@ -52,21 +53,21 @@
                                 <!-- Capsule Size (Only visible if Capsule is selected) -->
                                 <div class="col-sm-3" id="capsuleSizeField" style="display:none;">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Capsule Size (mm)" name="CapsuleSize" />
+                                        <input type="text" class="form-control" placeholder="Capsule Size (mm)" name="CapsuleSize" value="@Model.CapsuleSize" />
                                     </div>
                                 </div>
 
                                 <!-- Machine Dimension (Only visible if Capsule is selected) -->
                                 <div class="col-sm-3" id="machineDimensionField" style="display:none;">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Machine Dimension (e.g., 20x10x10 cm)" name="MachineDimension" />
+                                        <input type="text" class="form-control" placeholder="Machine Dimension" name="MachineDimension" value="@Model.MachineDimension" />
                                     </div>
                                 </div>
 
                                 <!-- Shipping Weight -->
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" placeholder="Shipping Weight (kg)" name="ShippingWeight" />
+                                        <input type="number" class="form-control" placeholder="Shipping Weight (kg)" name="ShippingWeight" value="@Model.ShippingWeight" />
                                     </div>
                                 </div>
                             </div>
@@ -75,28 +76,28 @@
                                 <!-- Model Number (Only visible if Tablet is selected) -->
                                 <div class="col-sm-3" id="modelNumberField" style="display:none;">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Model Number (e.g., XY123)" name="ModelNumber" />
+                                        <input type="text" class="form-control" placeholder="Model Number" name="ModelNumber" value="@Model.ModelNumber" />
                                     </div>
                                 </div>
 
                                 <!-- Dies (Only visible if Tablet is selected) -->
                                 <div class="col-sm-3" id="diesField" style="display:none;">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Dies (e.g., 4 dies)" name="Dies" />
+                                        <input type="text" class="form-control" placeholder="Dies" name="Dies" value="@Model.Dies" />
                                     </div>
                                 </div>
 
                                 <!-- Max Pressure -->
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" placeholder="Max Pressure (e.g., 150 bar)" name="MaxPressure" />
+                                        <input type="number" class="form-control" placeholder="Max Pressure" name="MaxPressure" value="@Model.MaxPressure" />
                                     </div>
                                 </div>
 
                                 <!-- Max Diameter -->
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" placeholder="Max Diameter (mm)" name="MaxDiameter" />
+                                        <input type="number" class="form-control" placeholder="Max Diameter (mm)" name="MaxDiameter" value="@Model.MaxDiameter" />
                                     </div>
                                 </div>
                             </div>
@@ -105,28 +106,28 @@
                                 <!-- Max Depth -->
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" placeholder="Max Depth (mm)" name="MaxDepth" />
+                                        <input type="number" class="form-control" placeholder="Max Depth (mm)" name="MaxDepth" value="@Model.MaxDepth" />
                                     </div>
                                 </div>
 
                                 <!-- Production Capacity -->
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" placeholder="Production Capacity (units/hour)" name="ProductionCapacity" />
+                                        <input type="number" class="form-control" placeholder="Production Capacity" name="ProductionCapacity" value="@Model.ProductionCapacity" />
                                     </div>
                                 </div>
 
                                 <!-- Air Pressure -->
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" placeholder="Air Pressure (bar)" name="AirPressure" />
+                                        <input type="number" class="form-control" placeholder="Air Pressure" name="AirPressure" value="@Model.AirPressure" />
                                     </div>
                                 </div>
 
                                 <!-- Air Volume -->
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" placeholder="Air Volume (L/min)" name="AirVolume" />
+                                        <input type="number" class="form-control" placeholder="Air Volume" name="AirVolume" value="@Model.AirVolume" />
                                     </div>
                                 </div>
                             </div>
@@ -135,21 +136,21 @@
                                 <!-- Filling Speed (Only visible if Liquid Filling is selected) -->
                                 <div class="col-sm-3" id="fillingSpeedField" style="display:none;">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" placeholder="Filling Speed (Bottles/min)" name="FillingSpeed" />
+                                        <input type="number" class="form-control" placeholder="Filling Speed (Bottles/min)" name="FillingSpeed" value="@Model.FillingSpeed" />
                                     </div>
                                 </div>
 
                                 <!-- Filling Range (Only visible if Liquid Filling is selected) -->
                                 <div class="col-sm-3" id="fillingRangeField" style="display:none;">
                                     <div class="form-group">
-                                        <input type="number" class="form-control" placeholder="Filling Range (ml)" name="FillingRange" />
+                                        <input type="number" class="form-control" placeholder="Filling Range (ml)" name="FillingRange" value="@Model.FillingRange" />
                                     </div>
                                 </div>
 
                                 <!-- Filling Type -->
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Filling Type (e.g., Liquid, Powder)" name="FillingType" />
+                                        <input type="text" class="form-control" placeholder="Filling Type" name="FillingType" value="@Model.FillingType" />
                                     </div>
                                 </div>
 
@@ -157,6 +158,13 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <input type="file" class="dropify" name="file" />
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <img src="@Model.Image" width="80px" height="80px" />
+                                        <input type="hidden" name="Image" value="@Model.Image" />
                                     </div>
                                 </div>
                             </div>
@@ -167,43 +175,10 @@
                                 <button type="reset" class="btn btn-outline-secondary">Cancel</button>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </form>
-
-        <script>
-            // Function to display fields based on the selected category
-            function displayFields() {
-                var categoryID = document.getElementById("CategoryID").value;
-
-                // Hide all category-specific fields first
-                document.getElementById("capsuleSizeField").style.display = "none";
-                document.getElementById("machineDimensionField").style.display = "none";
-                document.getElementById("modelNumberField").style.display = "none";
-                document.getElementById("diesField").style.display = "none";
-                document.getElementById("fillingSpeedField").style.display = "none";
-                document.getElementById("fillingRangeField").style.display = "none";
-
-                // Show fields based on selected category
-                if (categoryID == "1") {  // Capsule
-                    document.getElementById("capsuleSizeField").style.display = "block";
-                    document.getElementById("machineDimensionField").style.display = "block";
-                } else if (categoryID == "2") {  // Tablet
-                    document.getElementById("modelNumberField").style.display = "block";
-                    document.getElementById("diesField").style.display = "block";
-                } else if (categoryID == "3") {  // Liquid Filling
-                    document.getElementById("fillingSpeedField").style.display = "block";
-                    document.getElementById("fillingRangeField").style.display = "block";
-                }
-            }
-
-            // Call displayFields() when the page loads to check the selected category
-            window.onload = function() {
-                displayFields(); // Ensure the correct fields are displayed when the page loads
-            };
-        </script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             document.getElementById("submitBtn").addEventListener("click", function(e) {
@@ -224,7 +199,7 @@
                         var formData = new FormData(document.getElementById("productForm"));
 
                         // AJAX request to submit the form
-                        fetch('/admin/product/create', {
+                        fetch('/admin/product/edit', {
                             method: 'POST',
                             body: formData
                         })
@@ -265,6 +240,36 @@
                 });
             });
         </script>
+
+        <script>
+            function displayFields() {
+                var categoryID = document.getElementById("CategoryID").value;
+
+                // Hide all category-specific fields first
+                document.getElementById("capsuleSizeField").style.display = "none";
+                document.getElementById("machineDimensionField").style.display = "none";
+                document.getElementById("modelNumberField").style.display = "none";
+                document.getElementById("diesField").style.display = "none";
+                document.getElementById("fillingSpeedField").style.display = "none";
+                document.getElementById("fillingRangeField").style.display = "none";
+
+                // Show fields based on selected category
+                if (categoryID == "1") {  // Capsule
+                    document.getElementById("capsuleSizeField").style.display = "block";
+                    document.getElementById("machineDimensionField").style.display = "block";
+                } else if (categoryID == "2") {  // Tablet
+                    document.getElementById("modelNumberField").style.display = "block";
+                    document.getElementById("diesField").style.display = "block";
+                } else if (categoryID == "3") {  // Liquid Filling
+                    document.getElementById("fillingSpeedField").style.display = "block";
+                    document.getElementById("fillingRangeField").style.display = "block";
+                }
+            }
+            window.onload = function() {
+                displayFields(); // Ensure the correct fields are displayed when the page loads
+            };
+        </script>
+
 
     </div>
 </div>
