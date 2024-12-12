@@ -76,7 +76,6 @@
     <None Include="wwwroot\images\gallery\24.jpg" />
     <None Include="wwwroot\images\gallery\25.jpg" />
     <None Include="wwwroot\images\gallery\26.jpg" />
-    <None Include="wwwroot\images\logo-light.png" />
     <None Include="wwwroot\images\logo1.png" />
     <None Include="wwwroot\images\map_marker_icon.png" />
     <None Include="wwwroot\images\partners\01.png" />
