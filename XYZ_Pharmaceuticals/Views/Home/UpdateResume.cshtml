@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Update Resume";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center">Update Your Resume</h1>
+    <p class="text-center">Upload your latest resume and let us know about your updated experience!</p>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="resume">Upload Resume</label>
+            <input type="file" class="form-control" id="resume" name="resume" />
+        </div>
+        <button type="submit" class="btn btn-primary">Update Resume</button>
+    </form>
+</div>
