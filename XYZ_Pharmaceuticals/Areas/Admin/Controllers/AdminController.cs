@@ -4,6 +4,9 @@ using XYZ_Pharmaceuticals.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace XYZ_Pharmaceuticals.Areas.Admin.Controllers
 {
@@ -37,6 +40,14 @@ namespace XYZ_Pharmaceuticals.Areas.Admin.Controllers
 
                 if (adminInDb != null)
                 {
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Email, admin.Email),
+                        new Claim(ClaimTypes.NameIdentifier, admin.ID.ToString())
+                    };
+                    var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var claimPrinciple = new ClaimsPrincipal(claimIdentity);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrinciple);
                     // Nếu đăng nhập thành công
                     return Json(new { success = true, message = "Login successful!" });
                 }
@@ -55,8 +66,8 @@ namespace XYZ_Pharmaceuticals.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Logout()
         {
-            // Đăng xuất (trong trường hợp không dùng Identity, bạn cần phải tự quản lý session hoặc cookie)
-            return RedirectToAction("Login");
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Redirect("/admin/admin/login");
         }
     }
 }

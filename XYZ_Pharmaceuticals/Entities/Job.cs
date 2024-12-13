@@ -10,6 +10,6 @@
         public string SalaryRange { get; set; }
         public string Location { get; set; }
         public string Status { get; set; }
-        public DateTime? PostedDate { get; set; }
+        public DateTime PostedDate { get; set; } = DateTime.Now;
     }
 }

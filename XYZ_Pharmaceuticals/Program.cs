@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 using System;
 using XYZ_Pharmaceuticals.Models;
 
@@ -9,6 +10,17 @@ builder.Services.AddDbContext<AppDbContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("Connection"));
 });
 // Cấu hình Cookie
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+}
+).AddCookie(options =>
+{
+    options.Cookie.Name = "XYZCookie";
+    options.LoginPath = "/auth/login";
+    options.LogoutPath = "/auth/logout";
+});
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Auth/Login";

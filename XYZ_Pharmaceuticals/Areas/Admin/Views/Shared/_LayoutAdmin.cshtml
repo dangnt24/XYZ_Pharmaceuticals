@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿@using System.Security.Claims
+<!doctype html>
 <html lang="en">
 
 
@@ -43,7 +44,7 @@
                 </div>
 
                 <div class="navbar-brand">
-                    <a href="index.html"><img src="~/images/logo.png" alt="Lucid Logo" class="img-responsive logo"></a>
+                    <a href="/admin"><img src="~/images/logo.png" alt="Lucid Logo" class="img-responsive logo"></a>
                 </div>
 
                 <div class="navbar-right">
@@ -51,7 +52,13 @@
                     <div id="navbar-menu">
                         <ul class="nav navbar-nav">
                             <li>
-                                <a href="/admin/admin/login" class="icon-menu"><i class="icon-login"></i></a>
+                             @if(User.Identity.IsAuthenticated){
+                                    <form action="/admin/admin/logout" method="post">
+                                        <button class="btn btn-danger" type="submit"><i class="icon-login"></i></button>
+                                    </form>
+                             }else{
+                                    <a href="/admin/admin/login" class="icon-menu"><i class="icon-login"></i></a>
+                             }
                             </li>
                         </ul>
                     </div>
@@ -62,14 +69,20 @@
         <div id="left-sidebar" class="sidebar">
             <div class="sidebar-scroll">
                 <div class="user-account">
-                    <img src="~/admin/assets/images/user.png" class="rounded-circle user-photo" alt="User Profile Picture">
+                    <img src="~/images/logo.png" class="rounded-circle user-photo" alt="User Profile Picture">
                     <div class="dropdown">
                         <span>Welcome,</span>
-                        <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>Dr. Chandler Bing</strong></a>
+                        <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown">
+                            <strong>@User.FindFirst(ClaimTypes.Email)?.Value</strong>
+                        </a>
                         <ul class="dropdown-menu dropdown-menu-right account">
-                            <li><a href="doctor-profile.html"><i class="icon-user"></i>My Profile</a></li>
-                            <li class="divider"></li>
-                            <li><a href=""><i class="icon-power"></i>Logout</a></li>
+                            @* <li><a href="doctor-profile.html"><i class="icon-user"></i>My Profile</a></li> *@
+                            @* <li class="divider"></li> *@
+                            <li>
+                                <form action="/admin/admin/logout" method="post">
+                                    <button class="btn btn-danger" type="submit">Logout <i class="icon-login"></i></button>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -95,13 +108,20 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);" class="has-arrow"><i class="icon-user-follow"></i><span>Candidate</span> </a>
+                                    <a href="javascript:void(0);" class="has-arrow"><i class="icon-calendar"></i><span>Candidate</span> </a>
                                     <ul>
                                         <li><a href="/admin/candidate">All Candidate</a></li>
                                         <li><a href="/admin/candidate/create">Add Candidate</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="our-centres.html"><i class="icon-pointer"></i>Single</a></li>
+                                <li>
+                                    <a href="javascript:void(0);" class="has-arrow"><i class="icon-notebook"></i><span>Job</span> </a>
+                                    <ul>
+                                        <li><a href="/admin/job">All Job</a></li>
+                                        <li><a href="/admin/job/create">Add Job</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="/admin/job/candidate"><i class="icon-users"></i>Candidate Apply Job</a></li>
                             </ul>
                         </nav>
                     </div>
