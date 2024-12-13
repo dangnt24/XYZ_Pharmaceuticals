@@ -1,0 +1,144 @@
+﻿@{
+    ViewData["Title"] = "Career Opportunities";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* <div class="container mt-5">
+    <h1 class="text-center">Join Our Team</h1>
+    <p class="text-center">We are always looking for talented individuals to join our dynamic team. Explore our current job openings below and apply today!</p>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Current Job Openings</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Position</th>
+                        <th>Description</th>
+                        <th>Location</th>
+                        <th>Apply</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Software Engineer</td>
+                        <td>Developing and maintaining web applications</td>
+                        <td>New York, NY</td>
+                        <td><a href="#" class="btn btn-primary">Apply Now</a></td>
+                    </tr>
+                    <tr>
+                        <td>Product Manager</td>
+                        <td>Oversee the development of new products</td>
+                        <td>San Francisco, CA</td>
+                        <td><a href="#" class="btn btn-primary">Apply Now</a></td>
+                    </tr>
+                    <tr>
+                        <td>UX/UI Designer</td>
+                        <td>Designing user interfaces and experiences</td>
+                        <td>Los Angeles, CA</td>
+                        <td><a href="#" class="btn btn-primary">Apply Now</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h3>Apply for a Job</h3>
+            <form>
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email" />
+                </div>
+                <div class="form-group">
+                    <label for="resume">Upload Resume</label>
+                    <input type="file" class="form-control" id="resume" />
+                </div>
+                <button type="submit" class="btn btn-success">Submit Application</button>
+            </form>
+        </div>
+    </div>
+</div>
+ *@
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+<!-- Thêm jQuery và Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<div class="container mt-5">
+    <h1 class="text-center">Join Our Team</h1>
+    <p class="text-center">We are always looking for talented individuals to join our dynamic team. Explore our current job openings below and apply today!</p>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Current Job Openings</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Position</th>
+                        <th>Description</th>
+                        <th>Location</th>
+                        <th>Apply</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Software Engineer</td>
+                        <td>Developing and maintaining web applications</td>
+                        <td>New York, NY</td>
+                        <td><a href="#applyModal" class="btn btn-primary" data-toggle="modal">Apply Now</a></td>
+                    </tr>
+                    <tr>
+                        <td>Product Manager</td>
+                        <td>Oversee the development of new products</td>
+                        <td>San Francisco, CA</td>
+                        <td><a href="#applyModal" class="btn btn-primary" data-toggle="modal">Apply Now</a></td>
+                    </tr>
+                    <tr>
+                        <td>UX/UI Designer</td>
+                        <td>Designing user interfaces and experiences</td>
+                        <td>Los Angeles, CA</td>
+                        <td><a href="#applyModal" class="btn btn-primary" data-toggle="modal">Apply Now</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-labelledby="applyModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="applyModalLabel">Apply for a Job</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="resume">Upload Resume</label>
+                            <input type="file" class="form-control" id="resume" />
+                        </div>
+                        <button type="submit" class="btn btn-success">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

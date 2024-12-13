@@ -1,0 +1,152 @@
+﻿<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Edit Candidate</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/admin/candidate"><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item">Candidates</li>
+                        <li class="breadcrumb-item active">Edit Candidate</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        @model XYZ_Pharmaceuticals.Entities.Candidate
+
+        <form id="candidateForm" action="/admin/candidate/edit" method="post" enctype="multipart/form-data">
+            <input type="hidden" value="@Model.ID" name="ID" />
+            <!-- Candidate Information -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Candidate Information</h2>
+                        </div>
+                        <div class="body">
+                            <div class="row clearfix">
+                                <!-- Full Name -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Full Name" name="FullName" value="@Model.FullName" />
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" placeholder="Email" name="Email" value="@Model.Email" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <!-- Password (Optional) -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="hidden" asp-for="Password" />
+                                        <input type="password" class="form-control" placeholder="Password (Leave empty if not changing)" name="NewPassword" />
+                                    </div>
+                                </div>
+
+                                <!-- Resume -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="hidden" asp-for="Resume" />
+                                        <a href="@Model.Resume">(click to dowload resume)</a>
+                                        <input type="file" class="form-control" name="file" placeholder="Upload new file" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <!-- Personal Details -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Personal Details" name="PersonalDetails" rows="3">@Model.PersonalDetails</textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Education Details -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Education Details" name="EducationDetails" rows="3">@Model.EducationDetails</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit and Cancel Buttons -->
+                            <div class="col-sm-12">
+                                <button type="button" id="submitBtn" class="btn btn-primary">Submit</button>
+                                <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.getElementById("submitBtn").addEventListener("click", function(e) {
+                // Prevent the form from submitting immediately
+                e.preventDefault();
+
+                // SweetAlert2 confirmation dialog
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Do you want to update this candidate's information?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, submit it!',
+                    cancelButtonText: 'No, cancel',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // If confirmed, submit the form via AJAX
+                        var formData = new FormData(document.getElementById("candidateForm"));
+
+                        // AJAX request to submit the form
+                        fetch('/admin/Candidate/edit', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Success message after form submission
+                                Swal.fire(
+                                    'Updated!',
+                                    data.message,  // Message from server
+                                    'success'
+                                ).then(() => {
+                                    window.location.href = '/admin/candidate';  // Redirect to candidate list page
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Error!',
+                                    data.message || 'Something went wrong.',
+                                    'error'
+                                );
+                            }
+                        })
+                        .catch(error => {
+                            Swal.fire(
+                                'Error!',
+                                'There was a problem with the request.',
+                                'error'
+                            );
+                        });
+                    } else {
+                        // If canceled, show cancellation message
+                        Swal.fire(
+                            'Cancelled',
+                            'Your candidate information was not updated.',
+                            'info'
+                        );
+                    }
+                });
+            });
+        </script>
+    </div>
+</div>

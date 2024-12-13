@@ -145,6 +145,7 @@ namespace XYZ_Pharmaceuticals.Areas.Admin.Controllers
             product.MaxPressure = updatedProduct.MaxPressure;
             product.MaxDiameter = updatedProduct.MaxDiameter;
             product.MaxDepth = updatedProduct.MaxDepth;
+            product.CategoryID = updatedProduct.CategoryID;
             product.ProductionCapacity = updatedProduct.ProductionCapacity;
             product.AirPressure = updatedProduct.AirPressure;
             product.AirVolume = updatedProduct.AirVolume;
