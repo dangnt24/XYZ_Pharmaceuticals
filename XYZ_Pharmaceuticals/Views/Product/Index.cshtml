@@ -1,0 +1,89 @@
+﻿@model List<XYZ_Pharmaceuticals.Entities.Product>
+
+<section class="ls section_padding_bottom_130">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="shop-sorting">
+                    <!-- Form không cần thiết, chỉ cần dropdown -->
+                    <div class="form-group select-group">
+                        <select aria-required="true" id="category" name="categoryId" class="choice empty form-control" asp-items="ViewBag.cate" onchange="filterByCategory()">
+                            <option value="" disabled selected data-default>All Categories</option>
+                        </select>
+                        <i class="fa fa-angle-down theme_button color1 no_bg_button" aria-hidden="true"></i>
+                    </div>
+                </div>
+
+                <div class="columns-3">
+                    <ul id="products" class="products list-unstyled">
+                        @foreach (var item in Model)
+                        {
+                            <li class="product type-product">
+                                <div class="vertical-item content-padding text-center with_border">
+                                    <div class="item-media muted_background bottommargin_30">
+                                        <img src="@item.Image" alt="@item.ProductName" style="width: 100%; height: 300px; object-fit: cover;" />
+
+                                    </div>
+                                    <div class="item-content">
+                                        <h4 class="hover-color2 bottommargin_0">
+                                            <a href="shop-product-right.html">@item.ProductName</a>
+                                        </h4>
+
+                                        <p class="price semibold">
+                                            <ins>
+                                                <span class="amount">$@item.ShippingWeight</span>
+                                            </ins>
+                                        </p>
+
+                                        @if (item.CategoryID == 1)
+                                        {
+                                            <p><strong>Output:</strong> @item.Output</p>
+                                            <p><strong>Capsule Size:</strong> @item.CapsuleSize</p>
+                                        }
+                                        else if (item.CategoryID == 2)
+                                        {
+                                            <p><strong>Machine Dimensions:</strong> @item.MachineDimension</p>
+                                            <p><strong>Max Pressure:</strong> @item.MaxPressure</p>
+                                            <p><strong>Max Diameter:</strong> @item.MaxDiameter</p>
+                                        }
+                                        else if (item.CategoryID == 3)
+                                        {
+                                            <p><strong>Filling Speed:</strong> @item.FillingSpeed</p>
+                                            <p><strong>Filling Type:</strong> @item.FillingType</p>
+                                        }
+
+                                        <p class="topmargin_30">
+                                            <a href="/product/detail/@item.ID" class="theme_button color2 inverse min_width_button">Detail</a>
+                                            </p>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // JavaScript function to filter products based on categoryId
+    function filterByCategory() {
+        // Get the selected categoryId
+        var categoryId = document.getElementById('category').value;
+
+        // Redirect to the same page with the categoryId as a query parameter
+        var url = window.location.pathname;
+        var queryParams = new URLSearchParams(window.location.search);
+
+        // Add or update the categoryId query parameter
+        if (categoryId) {
+            queryParams.set('categoryId', categoryId);
+        } else {
+            queryParams.delete('categoryId'); // Remove the categoryId if no category is selected
+        }
+
+        // Redirect to the new URL with the updated query parameter
+        window.location.search = queryParams.toString();
+    }
+</script>
