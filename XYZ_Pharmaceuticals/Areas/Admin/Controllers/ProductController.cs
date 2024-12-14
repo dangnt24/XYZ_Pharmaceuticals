@@ -4,6 +4,8 @@ using XYZ_Pharmaceuticals.Models;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace XYZ_Pharmaceuticals.Areas.Admin.Controllers
 {
@@ -11,7 +13,7 @@ namespace XYZ_Pharmaceuticals.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly string _imageUploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "products");
+        private readonly string _imageUploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
 
         public ProductController(AppDbContext context)
         {
@@ -21,13 +23,25 @@ namespace XYZ_Pharmaceuticals.Areas.Admin.Controllers
         // Index - List all products
         public IActionResult Index()
         {
-            var products = _context.Products.ToList();
+            var products = _context.Products
+                .Include(c => c.Category)
+                .ToList();
+            ViewBag.Pro = _context.Products
+                .Include(c => c.Category)
+                .Count(c => c.Category.CategoryName == "Tablet");
+            ViewBag.Pro1 = _context.Products
+                .Include(c => c.Category)
+                .Count(c => c.Category.CategoryName == "Liquid Filling");
+            ViewBag.Pro2 = _context.Products
+                .Include(c => c.Category)
+                .Count(c => c.Category.CategoryName == "Capsule/Encapsulation");
             return View(products);
         }
 
         // Create - Show create product form (GET)
         public IActionResult Create()
         {
+            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "ID", "CategoryName");
             return View();
         }
 
@@ -75,13 +89,13 @@ namespace XYZ_Pharmaceuticals.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "ID", "CategoryName", product.CategoryID);
             return View(product);
         }
 
         // Edit (POST) - Update the product information
         [HttpPost]
-        public IActionResult Edit(int id, Product updatedProduct, IFormFile file)
+        public IActionResult Edit(int id, Product updatedProduct, IFormFile? file)
         {
             if (id != updatedProduct.ID)
             {
@@ -131,6 +145,7 @@ namespace XYZ_Pharmaceuticals.Areas.Admin.Controllers
             product.MaxPressure = updatedProduct.MaxPressure;
             product.MaxDiameter = updatedProduct.MaxDiameter;
             product.MaxDepth = updatedProduct.MaxDepth;
+            product.CategoryID = updatedProduct.CategoryID;
             product.ProductionCapacity = updatedProduct.ProductionCapacity;
             product.AirPressure = updatedProduct.AirPressure;
             product.AirVolume = updatedProduct.AirVolume;

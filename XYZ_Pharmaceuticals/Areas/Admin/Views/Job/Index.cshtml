@@ -1,0 +1,137 @@
+﻿@model IEnumerable<XYZ_Pharmaceuticals.Entities.Job>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> All Jobs</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#"><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item">Jobs</li>
+                        <li class="breadcrumb-item active">All Jobs</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 col-md-4 col-sm-12 text-right">
+                    <div class="bh_chart hidden-xs">
+                        <div class="float-left m-r-15">
+                            <a href="/admin/job/create" style="color: #a27ce6;">Add New Job</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="card jobs-list">
+                    <div class="header">
+                        <h2>Jobs List</h2>
+                    </div>
+                    <div class="body">
+
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs-new2">
+                            <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#Jobs">Jobs</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content m-t-10 padding-0">
+                            <!-- Jobs Tab -->
+                            <div class="tab-pane table-responsive active show" id="Jobs">
+                                <table class="table m-b-0 table-hover">
+                                    <thead class="thead-purple">
+                                        <tr>
+                                            <th>Job Title</th>
+                                            <th>Department</th>
+                                            <th>Job Description</th>
+                                            <th>Requirements</th>
+                                            <th>Salary Range</th>
+                                            <th>Status</th>
+                                            <th>Posted Date</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var job in Model)
+                                        {
+                                            <tr>
+                                                <td>@job.JobTitle</td>
+                                                <td>@job.Department</td>
+                                                <td>@job.JobDescription</td>
+                                                <td>@job.Requirements</td>
+                                                <td>@job.SalaryRange</td>
+                                                <td>@job.Status</td>
+                                                <td>@job.PostedDate.ToString("dd/MM/yyyy")</td>
+                                                <td>
+                                                    <a href="/admin/job/edit/@job.ID" class="btn btn-warning btn-sm">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <!-- Delete Button with Icon -->
+                                                    <button class="btn btn-danger btn-sm" onclick="deleteJob(@job.ID)">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                        <script>
+                            // Delete job
+                            function deleteJob(jobId) {
+                                Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: "You won't be able to revert this!",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonText: 'Yes, delete it!',
+                                    cancelButtonText: 'Cancel'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        // Proceed with AJAX request to delete the job
+                                        $.ajax({
+                                            url: '/admin/job/delete',
+                                            type: 'POST',
+                                            data: { id: jobId },
+                                            success: function (response) {
+                                                // Show success message using Swal
+                                                Swal.fire(
+                                                    'Deleted!',
+                                                    response.message, // Assuming the response contains a 'message' field
+                                                    'success'
+                                                ).then(() => {
+                                                    location.reload(); // Reload the page after deletion
+                                                });
+                                            },
+                                            error: function (xhr, status, error) {
+                                                // Show error message using Swal if something goes wrong
+                                                Swal.fire(
+                                                    'Error!',
+                                                    'There was an issue deleting the job.',
+                                                    'error'
+                                                );
+                                            }
+                                        });
+                                    } else {
+                                        // If canceled, you can optionally show a message
+                                        Swal.fire(
+                                            'Cancelled',
+                                            'Your job was not deleted.',
+                                            'info'
+                                        );
+                                    }
+                                });
+                            }
+                        </script>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

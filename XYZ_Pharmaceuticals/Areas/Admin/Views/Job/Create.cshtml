@@ -1,0 +1,169 @@
+﻿<div id="main-content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Add Job</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/admin/job"><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item">Jobs</li>
+                        <li class="breadcrumb-item active">Add Job</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        @model XYZ_Pharmaceuticals.Entities.Job
+
+        <form id="jobForm" action="/admin/job/create" method="post" enctype="multipart/form-data">
+            <!-- Job Information -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Job Information</h2>
+                        </div>
+                        <div class="body">
+                            <div class="row clearfix">
+                                <!-- Job Title -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Enter Job Title" name="JobTitle" required />
+                                    </div>
+                                </div>
+
+                                <!-- Department -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Enter Department" name="Department" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <!-- Job Description -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Enter Job Description" name="JobDescription" rows="3" required></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Requirements -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Enter Requirements" name="Requirements" rows="3" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <!-- Salary Range -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Enter Salary Range" name="SalaryRange" required />
+                                    </div>
+                                </div>
+
+                                <!-- Location -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Enter Job Location" name="Location" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <!-- Status -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <select class="form-control" name="Status" required>
+                                            <option value="Open">Open</option>
+                                            <option value="Closed">Closed</option>
+                                            <option value="Pending">Pending</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Posted Date -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="date" class="form-control" name="PostedDate" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit and Cancel Buttons -->
+                            <div class="col-sm-12">
+                                <button type="button" id="submitBtn" class="btn btn-primary">Submit</button>
+                                <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.getElementById("submitBtn").addEventListener("click", function(e) {
+                // Prevent the form from submitting immediately
+                e.preventDefault();
+
+                // SweetAlert2 confirmation dialog
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Do you want to submit this job?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, submit it!',
+                    cancelButtonText: 'No, cancel',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // If confirmed, submit the form via AJAX
+                        var formData = new FormData(document.getElementById("jobForm"));
+
+                        // AJAX request to submit the form
+                        fetch('/admin/job/create', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Success message after form submission
+                                Swal.fire(
+                                    'Submitted!',
+                                    data.message,  // Message from server
+                                    'success'
+                                ).then(() => {
+                                    window.location.href = '/admin/job';  // Redirect to job list
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Error!',
+                                    data.message || 'Something went wrong.',
+                                    'error'
+                                );
+                            }
+                        })
+                        .catch(error => {
+                            Swal.fire(
+                                'Error!',
+                                'There was a problem with the request.',
+                                'error'
+                            );
+                        });
+                    } else {
+                        // If canceled, show cancellation message
+                        Swal.fire(
+                            'Cancelled',
+                            'Your job was not submitted.',
+                            'info'
+                        );
+                    }
+                });
+            });
+        </script>
+    </div>
+</div>

@@ -83,6 +83,40 @@ namespace XYZ_Pharmaceuticals.Migrations
                     b.ToTable("Candidates");
                 });
 
+            modelBuilder.Entity("XYZ_Pharmaceuticals.Entities.Category", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            CategoryName = "Tablet"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            CategoryName = "Liquid Filling"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            CategoryName = "Capsule/Encapsulation"
+                        });
+                });
+
             modelBuilder.Entity("XYZ_Pharmaceuticals.Entities.Job", b =>
                 {
                     b.Property<int>("ID")
@@ -169,11 +203,12 @@ namespace XYZ_Pharmaceuticals.Migrations
                         .HasColumnType("real");
 
                     b.Property<string>("CapsuleSize")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Dies")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float?>("FillingRange")
@@ -183,14 +218,12 @@ namespace XYZ_Pharmaceuticals.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("FillingType")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MachineDimension")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float?>("MaxDepth")
@@ -203,11 +236,9 @@ namespace XYZ_Pharmaceuticals.Migrations
                         .HasColumnType("real");
 
                     b.Property<string>("ModelNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Output")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductName")
@@ -221,6 +252,8 @@ namespace XYZ_Pharmaceuticals.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("CategoryID");
 
                     b.ToTable("Products");
                 });
@@ -269,6 +302,22 @@ namespace XYZ_Pharmaceuticals.Migrations
                     b.Navigation("Candidate");
 
                     b.Navigation("Job");
+                });
+
+            modelBuilder.Entity("XYZ_Pharmaceuticals.Entities.Product", b =>
+                {
+                    b.HasOne("XYZ_Pharmaceuticals.Entities.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("XYZ_Pharmaceuticals.Entities.Category", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }
