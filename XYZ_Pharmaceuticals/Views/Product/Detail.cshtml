@@ -1,0 +1,60 @@
+﻿@model XYZ_Pharmaceuticals.Entities.Product
+
+<section class="ls section_padding_top_100 section_padding_bottom_75 columns_padding_25">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="with_border with_padding">
+					<div itemscope="" itemtype="http://schema.org/Product" class="product type-product row">
+						<div class="col-md-6">
+							<div class="images">
+									<a href="@Model.Image" itemprop="image" class="woocommerce-main-image zoom" data-rel="prettyPhoto[product-gallery]">
+										<img src="@Model.Image" class="attachment-shop_single wp-post-image muted_background" alt="@Model.ProductName" title="@Model.ProductName" />
+									</a>
+							</div>
+							<!-- eof .images -->
+						</div>
+
+						<div class="summary entry-summary col-md-6">
+							<h1 itemprop="name" class="product_title entry-title">@Model.ProductName</h1>
+							<div class="product_meta">
+								<span class="posted_in">
+									<span class="grey">Categories:</span>
+									<span class="categories-links small-text">
+										<a rel="category" >@Model.Category?.CategoryName</a>
+									</span>
+								</span>
+							</div>
+
+							<div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+								<div itemprop="description">
+									<p>Output: @Model.Output</p>
+								</div>
+							</div>
+
+							<!-- Product details -->
+							<div>
+								<p><strong>Capsule Size:</strong> @Model.CapsuleSize</p>
+								<p><strong>Machine Dimension:</strong> @Model.MachineDimension</p>
+								<p><strong>Shipping Weight:</strong> @Model.ShippingWeight</p>
+								<p><strong>Model Number:</strong> @Model.ModelNumber</p>
+								<p><strong>Dies:</strong> @Model.Dies</p>
+								<p><strong>Max Pressure:</strong> @Model.MaxPressure</p>
+								<p><strong>Max Diameter:</strong> @Model.MaxDiameter</p>
+								<p><strong>Max Depth:</strong> @Model.MaxDepth</p>
+								<p><strong>Production Capacity:</strong> @Model.ProductionCapacity</p>
+								<p><strong>Air Pressure:</strong> @Model.AirPressure</p>
+								<p><strong>Air Volume:</strong> @Model.AirVolume</p>
+								<p><strong>Filling Speed:</strong> @Model.FillingSpeed</p>
+								<p><strong>Filling Range:</strong> @Model.FillingRange</p>
+								<p><strong>Filling Type:</strong> @Model.FillingType</p>
+							</div>
+						</div>
+						<!-- .summary.col- -->
+					</div>
+					<!-- .product.row -->
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

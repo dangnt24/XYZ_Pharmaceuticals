@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿@using System.Security.Claims
+<!doctype html>
 <html lang="en">
 
 
@@ -10,7 +11,7 @@
     <meta name="description" content="Lucid Bootstrap 4.1.1 Admin Template">
     <meta name="author" content="WrapTheme, design by: ThemeMakker.com">
 
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="~/images/logo.png" type="image/x-icon">
     <!-- VENDOR CSS -->
     <link rel="stylesheet" href="~/admin/assets/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/admin/assets/vendor/font-awesome/css/font-awesome.min.css">
@@ -20,7 +21,7 @@
     <link rel="stylesheet" href="~/admin/assets/vendor/toastr/toastr.min.css">
 
     <!-- MAIN CSS -->
-    <link rel="stylesheet" href="~/admin/assets/css/main.css">
+    <link rel="stylesheet" href="~/admin/assets/css/main.css" asp-append-version="true">
     <link rel="stylesheet" href="~/admin/assets/css/color_skins.css">
 </head>
 <body class="theme-cyan">
@@ -28,7 +29,7 @@
     <!-- Page Loader -->
     <div class="page-loader-wrapper">
         <div class="loader">
-            <div class="m-t-30"><img src="https://www.wrraptheme.com/templates/lucid/hospital/images/logo-icon.svg" width="48" height="48" alt="Lucid"></div>
+            <div class="m-t-30"><img src="~/images/logo.png" width="48" height="48" alt="Lucid"></div>
             <p>Please wait...</p>
         </div>
     </div>
@@ -43,7 +44,7 @@
                 </div>
 
                 <div class="navbar-brand">
-                    <a href="index.html"><img src="https://www.wrraptheme.com/templates/lucid/hospital/images/logo.svg" alt="Lucid Logo" class="img-responsive logo"></a>
+                    <a href="/admin"><img src="~/images/logo.png" alt="Lucid Logo" class="img-responsive logo"></a>
                 </div>
 
                 <div class="navbar-right">
@@ -51,7 +52,13 @@
                     <div id="navbar-menu">
                         <ul class="nav navbar-nav">
                             <li>
-                                <a href="page-login.html" class="icon-menu"><i class="icon-login"></i></a>
+                             @if(User.Identity.IsAuthenticated){
+                                    <form action="/admin/admin/logout" method="post">
+                                        <button class="btn btn-danger" type="submit"><i class="icon-login"></i></button>
+                                    </form>
+                             }else{
+                                    <a href="/admin/admin/login" class="icon-menu"><i class="icon-login"></i></a>
+                             }
                             </li>
                         </ul>
                     </div>
@@ -62,14 +69,20 @@
         <div id="left-sidebar" class="sidebar">
             <div class="sidebar-scroll">
                 <div class="user-account">
-                    <img src="~/admin/assets/images/user.png" class="rounded-circle user-photo" alt="User Profile Picture">
+                    <img src="~/images/logo.png" class="rounded-circle user-photo" alt="User Profile Picture">
                     <div class="dropdown">
                         <span>Welcome,</span>
-                        <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>Dr. Chandler Bing</strong></a>
+                        <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown">
+                            <strong>@User.FindFirst(ClaimTypes.Email)?.Value</strong>
+                        </a>
                         <ul class="dropdown-menu dropdown-menu-right account">
-                            <li><a href="doctor-profile.html"><i class="icon-user"></i>My Profile</a></li>
-                            <li class="divider"></li>
-                            <li><a href="page-login.html"><i class="icon-power"></i>Logout</a></li>
+                            @* <li><a href="doctor-profile.html"><i class="icon-user"></i>My Profile</a></li> *@
+                            @* <li class="divider"></li> *@
+                            <li>
+                                <form action="/admin/admin/logout" method="post">
+                                    <button class="btn btn-danger" type="submit">Logout <i class="icon-login"></i></button>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -94,7 +107,21 @@
                                         <li><a href="/admin/product/create">Add Product</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="our-centres.html"><i class="icon-pointer"></i>Single</a></li>
+                                <li>
+                                    <a href="javascript:void(0);" class="has-arrow"><i class="icon-calendar"></i><span>Candidate</span> </a>
+                                    <ul>
+                                        <li><a href="/admin/candidate">All Candidate</a></li>
+                                        <li><a href="/admin/candidate/create">Add Candidate</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" class="has-arrow"><i class="icon-notebook"></i><span>Job</span> </a>
+                                    <ul>
+                                        <li><a href="/admin/job">All Job</a></li>
+                                        <li><a href="/admin/job/create">Add Job</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="/admin/job/candidate"><i class="icon-users"></i>Candidate Apply Job</a></li>
                             </ul>
                         </nav>
                     </div>

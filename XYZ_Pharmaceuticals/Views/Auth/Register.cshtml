@@ -1,0 +1,197 @@
+﻿@model Candidate
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>XYZ Pharmaceuticals</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="~/images/logo.png">
+    <script src="~/assets/js/theme-script.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/feather/feather.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+</head>
+<body>
+
+    <div class="main-wrapper log-wrap">
+        <div class="row">
+
+            <div class="col-md-6 login-bg">
+                <div class="owl-carousel login-slide owl-theme">
+                    <div class="welcome-login">
+                        <div class="login-banner">
+                            <img src="~/images/logo.png" class="img-fluid" alt="XYZ Pharmaceuticals Logo">
+                        </div>
+                        <div class="mentor-course text-center">
+                            <h2>Welcome to <br> XYZ Pharmaceuticals Careers</h2>
+                            <p>
+                                Join a leading global pharmaceutical company where you can make a real impact on healthcare.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="welcome-login">
+                        <div class="login-banner">
+                            <img src="~/images/logo.png" class="img-fluid" alt="XYZ Pharmaceuticals Logo">
+                        </div>
+                        <div class="mentor-course text-center">
+                            <h2>Welcome to <br> XYZ Pharmaceuticals Careers</h2>
+                            <p>
+                                Discover exciting career opportunities with XYZ Pharmaceuticals and grow your professional skills.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="welcome-login">
+                        <div class="login-banner">
+                            <img src="~/images/logo.png" class="img-fluid" alt="XYZ Pharmaceuticals Logo">
+                        </div>
+                        <div class="mentor-course text-center">
+                            <h2>Join Us at <br> XYZ Pharmaceuticals</h2>
+                            <p>
+                                Apply now and be part of a team dedicated to improving global health.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 login-wrap-bg">
+
+                <div class="login-wrapper">
+                    <div class="loginbox">
+                        <div class="img-logo">
+                            <img src="~/images/logo.png" class="img-fluid" alt="Logo" asp-append-version="true">
+                            <div class="back-home">
+                                <a href="/">Back to Home</a>
+                                <p class="mb-0">Already have an account? <a href="Login">Login</a></p>
+                            </div>
+                        </div>
+                        <h1>Register</h1>
+                        <form id="registerForm" action="/Auth/Register" method="post">
+                            <div class="input-block">
+                                <label class="form-control-label">Full Name</label>
+                                <input type="text" class="form-control" placeholder="Enter your full name" asp-for="FullName" required>
+                            </div>
+                            <div class="input-block">
+                                <label class="form-control-label">Email</label>
+                                <input type="email" class="form-control" placeholder="Enter your email address" asp-for="Email" required>
+                            </div>
+                            <div class="input-block">
+                                <label class="form-control-label">Password</label>
+                                <div class="pass-group" id="passwordInput">
+                                    <input type="password" class="form-control pass-input" placeholder="Enter your password" name="Password" required minlength="8">
+                                    <span class="toggle-password feather-eye"></span>
+                                    <span class="pass-checked"><i class="feather-check"></i></span>
+                                </div>
+                                <div class="password-strength" id="passwordStrength">
+                                    <span id="poor"></span>
+                                    <span id="weak"></span>
+                                    <span id="strong"></span>
+                                    <span id="heavy"></span>
+                                </div>
+                                <div id="passwordInfo"></div>
+                            </div>
+                            <div class="input-block">
+                                <label class="form-control-label">Personal Details</label>
+                                <input type="text" class="form-control" placeholder="Enter your persional details" asp-for="PersonalDetails" required>
+                            </div>
+                            <div class="input-block">
+                                <label class="form-control-label">Education Details</label>
+                                <input type="text" class="form-control" placeholder="Enter your education details" asp-for="EducationDetails" required>
+                            </div>
+                            <div class="form-check remember-me">
+                                <label class="form-check-label mb-0">
+                                    <input class="form-check-input" type="checkbox" name="remember" required checked> I agree to the <a >Terms of Service</a> and <a >Privacy Policy</a>.
+                                </label>
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-start" type="submit">Create Account</button>
+                            </div>
+                        </form>
+
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                        <script>
+                            $(document).ready(function () {
+                                $('#registerForm').on('submit', function (e) {
+                                    e.preventDefault(); // Prevent default form submission
+
+                                    var form = $(this);
+                                    var formData = form.serialize(); // Serialize form data
+
+                                    $.ajax({
+                                        url: form.attr('action'),
+                                        type: 'POST',
+                                        data: formData,
+                                        success: function (response) {
+                                            console.log(response);  // Add this to inspect the response
+
+                                            if (response.success) {
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: 'Registration Successful!',
+                                                    text: 'You will be redirected to the homepage shortly.',
+                                                    timer: 1500,
+                                                    showConfirmButton: false
+                                                }).then(() => {
+                                                    window.location.href = "/";
+                                                });
+                                            } else {
+                                                let errorMessage = '';
+                                                if (response.errors) {
+                                                    response.errors.forEach(function (error) {
+                                                        errorMessage += `<p>${error}</p>`;
+                                                    });
+                                                } else {
+                                                    errorMessage = response.message;
+                                                }
+
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Error!',
+                                                    html: errorMessage,
+                                                });
+                                            }
+                                        },
+                                        error: function () {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Error!',
+                                                text: 'An error occurred. Please try again later.',
+                                            });
+                                        }
+
+                                    });
+                                });
+                            });
+                        </script>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="~/assets/js/jquery-3.7.1.min.js" type="396c91523bbefd2e897fb28b-text/javascript"></script>
+
+    <script src="~/assets/js/bootstrap.bundle.min.js" type="396c91523bbefd2e897fb28b-text/javascript"></script>
+
+    <script src="~/assets/js/owl.carousel.min.js" type="396c91523bbefd2e897fb28b-text/javascript"></script>
+
+    <script src="~/assets/js/validation.js" type="396c91523bbefd2e897fb28b-text/javascript" asp-append-version="true"></script>
+
+    <script src="~/assets/js/script.js" type="396c91523bbefd2e897fb28b-text/javascript"></script>
+    <script src="~/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="396c91523bbefd2e897fb28b-|49" defer></script>
+</body>
+
+</html>

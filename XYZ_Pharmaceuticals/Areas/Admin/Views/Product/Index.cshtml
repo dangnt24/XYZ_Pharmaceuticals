@@ -1,38 +1,40 @@
-﻿
+﻿@model IEnumerable<XYZ_Pharmaceuticals.Entities.Product>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 <div id="main-content">
     <div class="container-fluid">
         <div class="block-header">
             <div class="row">
                 <div class="col-lg-6 col-md-8 col-sm-12">
-                    <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> All Patient</h2>
+                    <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> All Product</h2>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
-                        <li class="breadcrumb-item">Patient</li>
-                        <li class="breadcrumb-item active">All Patient</li>
+                        <li class="breadcrumb-item"><a href="#"><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item">Product</li>
+                        <li class="breadcrumb-item active">All Product</li>
                     </ul>
                 </div>
                 <div class="col-lg-6 col-md-4 col-sm-12 text-right">
                     <div class="bh_chart hidden-xs">
                         <div class="float-left m-r-15">
-                            <small>Visitors</small>
-                            <h6 class="mb-0 mt-1"><i class="icon-user"></i> 1,784</h6>
+                            <small style="color: #a27ce6;">Tablet</small>
+                            <h6 class="mb-0 mt-1" style="color: #a27ce6;"><i class="fas fa-keyboard-o"></i> @ViewBag.Pro</h6>
                         </div>
-                        <span class="bh_visitors float-right">2,5,1,8,3,6,7,5</span>
+                        <span class="bh_visitors float-right">@ViewBag.Pro, @ViewBag.Pro1, @ViewBag.Pro2</span>
                     </div>
                     <div class="bh_chart hidden-sm">
                         <div class="float-left m-r-15">
-                            <small>Visits</small>
-                            <h6 class="mb-0 mt-1"><i class="icon-globe"></i> 325</h6>
+                            <small class="text-info">Liquid Filling</small>
+                            <h6 class="mb-0 mt-1 text-info"><i class="fas fa-keyboard-o"></i> @ViewBag.Pro1</h6>
                         </div>
-                        <span class="bh_visits float-right">10,8,9,3,5,8,5</span>
+                        <span class="bh_visits float-right">@ViewBag.Pro1, @ViewBag.Pro, @ViewBag.Pro2</span>
                     </div>
                     <div class="bh_chart hidden-sm">
                         <div class="float-left m-r-15">
-                            <small>Chats</small>
-                            <h6 class="mb-0 mt-1"><i class="icon-bubbles"></i> 13</h6>
+                            <small class="text-success">Capsule/Encapsulation</small>
+                            <h6 class="mb-0 mt-1 text-success"><i class="fas fa-keyboard-o"></i> @ViewBag.Pro2</h6>
                         </div>
-                        <span class="bh_chats float-right">1,8,5,6,2,4,3,2</span>
+                        <span class="bh_chats float-right">@ViewBag.Pro2, @ViewBag.Pro1, @ViewBag.Pro</span>
                     </div>
+                    <a href="/admin/product/create" style="color: #a27ce6;">Add New</a>
                 </div>
             </div>
         </div>
@@ -41,316 +43,196 @@
             <div class="col-md-12">
                 <div class="card patients-list">
                     <div class="header">
-                        <h2>Patients List</h2>
-                        <ul class="header-dropdown">
-                            <li><a class="tab_btn" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Weekly">W</a></li>
-                            <li><a class="tab_btn" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Monthly">M</a></li>
-                            <li><a class="tab_btn active" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Yearly">Y</a></li>
-                            <li class="dropdown">
-                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="javascript:void(0);">Action</a></li>
-                                    <li><a href="javascript:void(0);">Another Action</a></li>
-                                    <li><a href="javascript:void(0);">Something else</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+                        <h2>Products List</h2>
                     </div>
                     <div class="body">
+
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs-new2">
-                            <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#All">All</a></li>
-                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#USA">USA</a></li>
-                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#India">India</a></li>
+                            <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#Tablet">Tablet</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Liquid">Liquid Filling</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Capsule">Capsule/Encapsulation</a></li>
                         </ul>
 
                         <!-- Tab panes -->
                         <div class="tab-content m-t-10 padding-0">
-                            <div class="tab-pane table-responsive active show" id="All">
+                            <!-- Tablet Tab -->
+                            <div class="tab-pane table-responsive active show" id="Tablet">
                                 <table class="table m-b-0 table-hover">
-                                    <thead class="thead-dark">
+                                    <thead class="thead-purple">
                                         <tr>
-                                            <th>Media</th>
-                                            <th>Patients ID</th>
-                                            <th>Name</th>
-                                            <th>Age</th>
-                                            <th>Address</th>
-                                            <th>Number</th>
-                                            <th>Last Visit</th>
-                                            <th>Status</th>
+                                            <th>Product Name</th>
+                                            <th>Category</th>
+                                            <th>Model Number</th>
+                                            <th>Max Pressure</th>
+                                            <th>Max Diameter</th>
+                                            <th>Image</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar1.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00598</span></td>
-                                            <td>Daniel</td>
-                                            <td>32</td>
-                                            <td>71 Pilgrim Avenue Chevy Chase, MD 20815</td>
-                                            <td>404-447-6013</td>
-                                            <td>11 Jan 2018</td>
-                                            <td><span class="badge badge-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar2.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00258</span></td>
-                                            <td>Alexander</td>
-                                            <td>22</td>
-                                            <td>123 6th St. Melbourne, FL 32904</td>
-                                            <td>404-447-6013</td>
-                                            <td>15 Jan 2018</td>
-                                            <td><span class="badge badge-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar3.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00369</span></td>
-                                            <td>Richard</td>
-                                            <td>26</td>
-                                            <td>123 6th St. Melbourne, FL 32904</td>
-                                            <td>404-447-6013</td>
-                                            <td>16 Jan 2018</td>
-                                            <td><span class="badge badge-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar4.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00147</span></td>
-                                            <td>Samuel</td>
-                                            <td>45</td>
-                                            <td>71 Pilgrim Avenue Chevy Chase, MD 20815</td>
-                                            <td>404-447-6013</td>
-                                            <td>17 Jan 2018</td>
-                                            <td><span class="badge badge-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar5.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00123</span></td>
-                                            <td>Stephen</td>
-                                            <td>55</td>
-                                            <td>71 Pilgrim Avenue Chevy Chase, MD 20815</td>
-                                            <td>404-447-6013</td>
-                                            <td>18 Jan 2018</td>
-                                            <td><span class="badge badge-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar1.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00456</span></td>
-                                            <td>Joseph</td>
-                                            <td>27</td>
-                                            <td>70 Bowman St. South Windsor, CT 06074</td>
-                                            <td>404-447-6013</td>
-                                            <td>19 Jan 2018</td>
-                                            <td><span class="badge badge-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar2.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00789</span></td>
-                                            <td>Cameron</td>
-                                            <td>38</td>
-                                            <td>123 6th St. Melbourne, FL 32904</td>
-                                            <td>404-447-6013</td>
-                                            <td>19 Jan 2018</td>
-                                            <td><span class="badge badge-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar3.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00987</span></td>
-                                            <td>Alex</td>
-                                            <td>39</td>
-                                            <td>123 6th St. Melbourne, FL 32904</td>
-                                            <td>404-447-6013</td>
-                                            <td>20 Jan 2018</td>
-                                            <td><span class="badge badge-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar4.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00951</span></td>
-                                            <td>James</td>
-                                            <td>32</td>
-                                            <td>44 Shirley Ave. West Chicago, IL 60185</td>
-                                            <td>404-447-6013</td>
-                                            <td>22 Jan 2018</td>
-                                            <td><span class="badge badge-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar1.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00953</span></td>
-                                            <td>charlie</td>
-                                            <td>51</td>
-                                            <td>123 6th St. Melbourne, FL 32904</td>
-                                            <td>404-447-6013</td>
-                                            <td>22 Jan 2018</td>
-                                            <td><span class="badge badge-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar5.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00984</span></td>
-                                            <td>William</td>
-                                            <td>35</td>
-                                            <td>123 6th St. Melbourne, FL 32904</td>
-                                            <td>404-447-6013</td>
-                                            <td>22 Jan 2018</td>
-                                            <td><span class="badge badge-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar2.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00934</span></td>
-                                            <td>Bing</td>
-                                            <td>26</td>
-                                            <td>123 6th St. Melbourne, FL 32904</td>
-                                            <td>404-447-6013</td>
-                                            <td>29 Jan 2018</td>
-                                            <td><span class="badge badge-warning">Pending</span></td>
-                                        </tr>
+                                        @foreach (var product in Model.Where(p => p.Category.CategoryName == "Tablet"))
+                                        {
+                                            <tr>
+                                                <td>@product.ProductName</td>
+                                                <td>@product.Category.CategoryName</td>
+                                                <td>@product.ModelNumber</td>
+                                                <td>@product.MaxPressure</td>
+                                                <td>@product.MaxDiameter</td>
+                                                <td>
+                                                    <img src="@product.Image" width="50px" height="50px" />
+                                                </td>
+                                                <td>
+                                                    <a href="/admin/product/edit/@product.ID" class="btn btn-warning btn-sm">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <!-- Delete Button with Icon -->
+                                                    <button class="btn btn-danger btn-sm" onclick="deleteProduct(@product.ID)">
+                                                        <i class="fas fa-trash-alt"></i> 
+                                                    </button>
+                                                </td>
+
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="tab-pane table-responsive" id="USA">
+
+                            <!-- Liquid Filling Tab -->
+                            <div class="tab-pane table-responsive" id="Liquid">
+                                <table class="table m-b-0 table-hover">
+                                    <thead class="thead-info">
+                                        <tr>
+                                            <th>Product Name</th>
+                                            <th>Category</th>
+                                            <th>Filling Speed</th>
+                                            <th>Filling Range</th>
+                                            <th>Air Pressure</th>
+                                            <th>Image</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var product in Model.Where(p => p.Category.CategoryName == "Liquid Filling"))
+                                        {
+                                            <tr>
+                                                <td>@product.ProductName</td>
+                                                <td>@product.Category.CategoryName</td>
+                                                <td>@product.FillingSpeed</td>
+                                                <td>@product.FillingRange</td>
+                                                <td>@product.AirPressure</td>
+                                                <td>
+                                                    <img src="@product.Image" width="50px" height="50px" />
+                                                </td>
+                                                <td>
+                                                    <a href="/admin/product/edit/@product.ID" class="btn btn-warning btn-sm">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <!-- Delete Button with Icon -->
+                                                    <button class="btn btn-danger btn-sm" onclick="deleteProduct(@product.ID)">
+                                                        <i class="fas fa-trash-alt"></i> 
+                                                    </button>
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Capsule/Encapsulation Tab -->
+                            <div class="tab-pane table-responsive" id="Capsule">
                                 <table class="table m-b-0 table-hover">
                                     <thead class="thead-success">
                                         <tr>
-                                            <th>Media</th>
-                                            <th>Patients ID</th>
-                                            <th>Name</th>
-                                            <th>Age</th>
-                                            <th>Address</th>
-                                            <th>Number</th>
-                                            <th>Last Visit</th>
-                                            <th>Status</th>
+                                            <th>Product Name</th>
+                                            <th>Category</th>
+                                            <th>Output</th>
+                                            <th>Capsule Size</th>
+                                            <th>Machine Dimension</th>
+                                            <th>Image</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar1.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00598</span></td>
-                                            <td>Daniel</td>
-                                            <td>32</td>
-                                            <td>71 Pilgrim Avenue Chevy Chase, MD 20815</td>
-                                            <td>404-447-6013</td>
-                                            <td>11 Jan 2018</td>
-                                            <td><span class="badge badge-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar2.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00258</span></td>
-                                            <td>Alexander</td>
-                                            <td>22</td>
-                                            <td>123 6th St. Melbourne, FL 32904</td>
-                                            <td>404-447-6013</td>
-                                            <td>15 Jan 2018</td>
-                                            <td><span class="badge badge-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar1.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00456</span></td>
-                                            <td>Joseph</td>
-                                            <td>27</td>
-                                            <td>70 Bowman St. South Windsor, CT 06074</td>
-                                            <td>404-447-6013</td>
-                                            <td>19 Jan 2018</td>
-                                            <td><span class="badge badge-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar2.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00789</span></td>
-                                            <td>Cameron</td>
-                                            <td>38</td>
-                                            <td>123 6th St. Melbourne, FL 32904</td>
-                                            <td>404-447-6013</td>
-                                            <td>19 Jan 2018</td>
-                                            <td><span class="badge badge-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar3.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00987</span></td>
-                                            <td>Alex</td>
-                                            <td>39</td>
-                                            <td>123 6th St. Melbourne, FL 32904</td>
-                                            <td>404-447-6013</td>
-                                            <td>20 Jan 2018</td>
-                                            <td><span class="badge badge-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar4.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00951</span></td>
-                                            <td>James</td>
-                                            <td>32</td>
-                                            <td>44 Shirley Ave. West Chicago, IL 60185</td>
-                                            <td>404-447-6013</td>
-                                            <td>22 Jan 2018</td>
-                                            <td><span class="badge badge-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar1.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00953</span></td>
-                                            <td>charlie</td>
-                                            <td>51</td>
-                                            <td>123 6th St. Melbourne, FL 32904</td>
-                                            <td>404-447-6013</td>
-                                            <td>22 Jan 2018</td>
-                                            <td><span class="badge badge-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar2.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00934</span></td>
-                                            <td>Bing</td>
-                                            <td>26</td>
-                                            <td>123 6th St. Melbourne, FL 32904</td>
-                                            <td>404-447-6013</td>
-                                            <td>29 Jan 2018</td>
-                                            <td><span class="badge badge-warning">Pending</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="tab-pane table-responsive" id="India">
-                                <table class="table m-b-0 table-hover">
-                                    <thead class="thead-warning">
-                                        <tr>
-                                            <th>Media</th>
-                                            <th>Patients ID</th>
-                                            <th>Name</th>
-                                            <th>Age</th>
-                                            <th>Address</th>
-                                            <th>Number</th>
-                                            <th>Last Visit</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar4.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00951</span></td>
-                                            <td>James</td>
-                                            <td>32</td>
-                                            <td>44 Shirley Ave. West Chicago, IL 60185</td>
-                                            <td>404-447-6013</td>
-                                            <td>22 Jan 2018</td>
-                                            <td><span class="badge badge-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar1.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00953</span></td>
-                                            <td>charlie</td>
-                                            <td>51</td>
-                                            <td>123 6th St. Melbourne, FL 32904</td>
-                                            <td>404-447-6013</td>
-                                            <td>22 Jan 2018</td>
-                                            <td><span class="badge badge-warning">Pending</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="list-icon"><img class="patients-img" src="../assets/images/xs/avatar2.jpg" alt=""></span></td>
-                                            <td><span class="list-name">KU 00934</span></td>
-                                            <td>Bing</td>
-                                            <td>26</td>
-                                            <td>123 6th St. Melbourne, FL 32904</td>
-                                            <td>404-447-6013</td>
-                                            <td>29 Jan 2018</td>
-                                            <td><span class="badge badge-warning">Pending</span></td>
-                                        </tr>
+                                        @foreach (var product in Model.Where(p => p.Category.CategoryName == "Capsule/Encapsulation"))
+                                        {
+                                            <tr>
+                                                <td>@product.ProductName</td>
+                                                <td>@product.Category.CategoryName</td>
+                                                <td>@product.Output</td>
+                                                <td>@product.CapsuleSize</td>
+                                                <td>@product.MachineDimension</td>
+                                                <td>
+                                                    <img src="@product.Image" width="50px" height="50px" />
+                                                </td>
+                                                <td>
+                                                    <!-- Edit Button with Icon -->
+                                                    <a href="/admin/product/edit/@product.ID" class="btn btn-warning btn-sm">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+
+                                                    <!-- Delete Button with Icon -->
+                                                    <button class="btn btn-danger btn-sm" onclick="deleteProduct(@product.ID)">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                        <script>
+                            // Delete product
+                            function deleteProduct(productId) {
+                                Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: "You won't be able to revert this!",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonText: 'Yes, delete it!',
+                                    cancelButtonText: 'Cancel'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        // Proceed with AJAX request to delete the product
+                                        $.ajax({
+                                            url: '/admin/product/delete',
+                                            type: 'POST',
+                                            data: { id: productId },
+                                            success: function (response) {
+                                                // Show success message using Swal
+                                                Swal.fire(
+                                                    'Deleted!',
+                                                    response.message, // Assuming the response contains a 'message' field
+                                                    'success'
+                                                ).then(() => {
+                                                    location.reload(); // Reload the page after deletion
+                                                });
+                                            },
+                                            error: function (xhr, status, error) {
+                                                // Show error message using Swal if something goes wrong
+                                                Swal.fire(
+                                                    'Error!',
+                                                    'There was an issue deleting the product.',
+                                                    'error'
+                                                );
+                                            }
+                                        });
+                                    } else {
+                                        // If canceled, you can optionally show a message
+                                        Swal.fire(
+                                            'Cancelled',
+                                            'Your product was not deleted.',
+                                            'info'
+                                        );
+                                    }
+                                });
+                            }
+                        </script>
+
                     </div>
                 </div>
             </div>

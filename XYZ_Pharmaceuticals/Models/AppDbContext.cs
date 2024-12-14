@@ -13,6 +13,7 @@ public class AppDbContext : DbContext
     public DbSet<JobApplication> JobApplications { get; set; }
     public DbSet<Job> Jobs { get; set; }
     public DbSet<Quote> Quotes { get; set; }
+    public DbSet<Category> Categories { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -21,7 +22,18 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Candidate>()
             .HasIndex(c => c.Email)
             .IsUnique();
-
+        modelBuilder.Entity<Category>().HasData(
+            new Category { ID = 1, CategoryName = "Tablet" },
+            new Category { ID = 2, CategoryName = "Liquid Filling" },
+            new Category { ID = 3, CategoryName = "Capsule/Encapsulation" }
+        );
+        modelBuilder.Entity<Admin>().HasData(
+           new Admin
+           {
+               ID = 1,
+               Email = "admin@gmail.com",
+               Password = "123123123" 
+           });
         base.OnModelCreating(modelBuilder);
     }
 }

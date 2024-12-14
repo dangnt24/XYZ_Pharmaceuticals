@@ -5,189 +5,266 @@
                 <div class="col-lg-6 col-md-8 col-sm-12">
                     <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Add Doctors</h2>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
-                        <li class="breadcrumb-item">Doctor</li>
-                        <li class="breadcrumb-item active">Add Doctors</li>
+                        <li class="breadcrumb-item"><a href="/admin/product"><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item">Product</li>
+                        <li class="breadcrumb-item active">Add Products</li>
                     </ul>
                 </div>
-                <div class="col-lg-6 col-md-4 col-sm-12 text-right">
-                    <div class="bh_chart hidden-xs">
-                        <div class="float-left m-r-15">
-                            <small>Visitors</small>
-                            <h6 class="mb-0 mt-1"><i class="icon-user"></i> 1,784</h6>
-                        </div>
-                        <span class="bh_visitors float-right">2,5,1,8,3,6,7,5</span>
-                    </div>
-                    <div class="bh_chart hidden-sm">
-                        <div class="float-left m-r-15">
-                            <small>Visits</small>
-                            <h6 class="mb-0 mt-1"><i class="icon-globe"></i> 325</h6>
-                        </div>
-                        <span class="bh_visits float-right">10,8,9,3,5,8,5</span>
-                    </div>
-                    <div class="bh_chart hidden-sm">
-                        <div class="float-left m-r-15">
-                            <small>Chats</small>
-                            <h6 class="mb-0 mt-1"><i class="icon-bubbles"></i> 13</h6>
-                        </div>
-                        <span class="bh_chats float-right">1,8,5,6,2,4,3,2</span>
-                    </div>
-                </div>
             </div>
         </div>
+        @model XYZ_Pharmaceuticals.Entities.Product
 
-        <div class="row clearfix">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="card">
-                    <div class="header">
-                        <h2>Basic Information <small>Description text here...</small> </h2>
-                    </div>
-                    <div class="body">
-                        <div class="row clearfix">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="First Name">
+        <form id="productForm" action="/admin/product/create" method="post" enctype="multipart/form-data">
+            <!-- Basic Product Information -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Product Information</h2>
+                        </div>
+                        <div class="body">
+                            <div class="row clearfix">
+                                <!-- Product Name -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Enter Product Name (e.g., Vacuum Cleaner)" name="ProductName" />
+                                    </div>
+                                </div>
+
+                                <!-- Output -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Enter Output (e.g., 500W)" name="Output" />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Last Name">
+
+                            <div class="row clearfix">
+                                <!-- Category Dropdown -->
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <select class="form-control show-tick" name="CategoryID" id="CategoryID" onchange="displayFields()" asp-for="CategoryID" asp-items="ViewBag.Categories">
+                                            <option>---Select Category---</option>
+                                        </select>
+                                    </div>
                                 </div>
+
+                                <!-- Capsule Size (Only visible if Capsule is selected) -->
+                                <div class="col-sm-3" id="capsuleSizeField" style="display:none;">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Capsule Size (mm)" name="CapsuleSize" />
+                                    </div>
+                                </div>
+
+                                <!-- Machine Dimension (Only visible if Capsule is selected) -->
+                                <div class="col-sm-3" id="machineDimensionField" style="display:none;">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Machine Dimension (e.g., 20x10x10 cm)" name="MachineDimension" />
+                                    </div>
+                                </div>
+
+                                <!-- Shipping Weight -->
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" placeholder="Shipping Weight (kg)" name="ShippingWeight" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <!-- Model Number (Only visible if Tablet is selected) -->
+                                <div class="col-sm-3" id="modelNumberField" style="display:none;">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Model Number (e.g., XY123)" name="ModelNumber" />
+                                    </div>
+                                </div>
+
+                                <!-- Dies (Only visible if Tablet is selected) -->
+                                <div class="col-sm-3" id="diesField" style="display:none;">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Dies (e.g., 4 dies)" name="Dies" />
+                                    </div>
+                                </div>
+
+                                <!-- Max Pressure -->
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" placeholder="Max Pressure (e.g., 150 bar)" name="MaxPressure" />
+                                    </div>
+                                </div>
+
+                                <!-- Max Diameter -->
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" placeholder="Max Diameter (mm)" name="MaxDiameter" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <!-- Max Depth -->
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" placeholder="Max Depth (mm)" name="MaxDepth" />
+                                    </div>
+                                </div>
+
+                                <!-- Production Capacity -->
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" placeholder="Production Capacity (units/hour)" name="ProductionCapacity" />
+                                    </div>
+                                </div>
+
+                                <!-- Air Pressure -->
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" placeholder="Air Pressure (bar)" name="AirPressure" />
+                                    </div>
+                                </div>
+
+                                <!-- Air Volume -->
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" placeholder="Air Volume (L/min)" name="AirVolume" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <!-- Filling Speed (Only visible if Liquid Filling is selected) -->
+                                <div class="col-sm-3" id="fillingSpeedField" style="display:none;">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" placeholder="Filling Speed (Bottles/min)" name="FillingSpeed" />
+                                    </div>
+                                </div>
+
+                                <!-- Filling Range (Only visible if Liquid Filling is selected) -->
+                                <div class="col-sm-3" id="fillingRangeField" style="display:none;">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" placeholder="Filling Range (ml)" name="FillingRange" />
+                                    </div>
+                                </div>
+
+                                <!-- Filling Type -->
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Filling Type (e.g., Liquid, Powder)" name="FillingType" />
+                                    </div>
+                                </div>
+
+                                <!-- Image Upload -->
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <input type="file" class="dropify" name="file" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit and Cancel Buttons -->
+                            <div class="col-sm-12">
+                                <button type="button" id="submitBtn" class="btn btn-primary">Submit</button>
+                                <button type="reset" class="btn btn-outline-secondary">Cancel</button>
                             </div>
                         </div>
-                        <div class="row clearfix">
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <input type="text" data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Date of Birth">
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <select class="form-control show-tick">
-                                        <option value="">- Gender -</option>
-                                        <option value="10">Male</option>
-                                        <option value="20">Female</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Speciality">
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Phone">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Enter Your Email">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Website URL">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <input type="file" class="dropify">
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="form-group mt-3">
-                                    <textarea rows="4" class="form-control no-resize" placeholder="Please type what you want..."></textarea>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <button type="submit" class="btn btn-outline-secondary">Cancel</button>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row clearfix">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="header">
-                        <h2>Doctor's Account Information <small>Description text here...</small> </h2>
-                    </div>
-                    <div class="body">
-                        <div class="row clearfix">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="User Name">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Password">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Confirm Password">
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <button type="submit" class="btn btn-outline-secondary">Cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row clearfix">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="header">
-                        <h2>Doctor Social Media Info <small>Description text here...</small> </h2>
-                    </div>
-                    <div class="body">
-                        <div class="row clearfix">
-                            <div class="col-md-6">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-facebook"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Facebook">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-twitter"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Twitter">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-linkedin"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Linkedin">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-instagram"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Instagram">
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <button type="submit" class="btn btn-outline-secondary">Cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </form>
+
+        <script>
+            // Function to display fields based on the selected category
+            function displayFields() {
+                var categoryID = document.getElementById("CategoryID").value;
+
+                // Hide all category-specific fields first
+                document.getElementById("capsuleSizeField").style.display = "none";
+                document.getElementById("machineDimensionField").style.display = "none";
+                document.getElementById("modelNumberField").style.display = "none";
+                document.getElementById("diesField").style.display = "none";
+                document.getElementById("fillingSpeedField").style.display = "none";
+                document.getElementById("fillingRangeField").style.display = "none";
+
+                // Show fields based on selected category
+                if (categoryID == "1") {  // Capsule
+                    document.getElementById("capsuleSizeField").style.display = "block";
+                    document.getElementById("machineDimensionField").style.display = "block";
+                } else if (categoryID == "2") {  // Tablet
+                    document.getElementById("modelNumberField").style.display = "block";
+                    document.getElementById("diesField").style.display = "block";
+                } else if (categoryID == "3") {  // Liquid Filling
+                    document.getElementById("fillingSpeedField").style.display = "block";
+                    document.getElementById("fillingRangeField").style.display = "block";
+                }
+            }
+
+            // Call displayFields() when the page loads to check the selected category
+            window.onload = function() {
+                displayFields(); // Ensure the correct fields are displayed when the page loads
+            };
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.getElementById("submitBtn").addEventListener("click", function(e) {
+                // Prevent the form from submitting immediately
+                e.preventDefault();
+
+                // SweetAlert2 confirmation dialog
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Do you want to submit this product?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, submit it!',
+                    cancelButtonText: 'No, cancel',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // If confirmed, submit the form via AJAX
+                        var formData = new FormData(document.getElementById("productForm"));
+
+                        // AJAX request to submit the form
+                        fetch('/admin/product/create', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Success message after form submission
+                                Swal.fire(
+                                    'Submitted!',
+                                    data.message,  // Message from server
+                                    'success'
+                                ).then(() => {
+                                    window.location.href = '/admin/product';  // Redirect to your desired page
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Error!',
+                                    data.message || 'Something went wrong.',
+                                    'error'
+                                );
+                            }
+                        })
+                        .catch(error => {
+                            Swal.fire(
+                                'Error!',
+                                'There was a problem with the request.',
+                                'error'
+                            );
+                        });
+                    } else {
+                        // If canceled, show cancellation message
+                        Swal.fire(
+                            'Cancelled',
+                            'Your product was not submitted.',
+                            'error'
+                        );
+                    }
+                });
+            });
+        </script>
 
     </div>
 </div>
