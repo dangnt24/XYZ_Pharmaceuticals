@@ -2,9 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using XYZ_Pharmaceuticals.Models;
+using XYZ_Pharmaceuticals.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddScoped<CustomUserStore>();
 builder.Services.AddDbContext<AppDbContext>(opts =>
 {
     opts.UseSqlServer(builder.Configuration.GetConnectionString("Connection"));

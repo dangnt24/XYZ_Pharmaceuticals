@@ -124,7 +124,14 @@
 										<li> <a href="/Home/Career">Careers</a> </li>
 										<li> <a href="/Home/UpdateResume">Update Resume</a> </li>
 
-										<li> <a href="/admin/admin/login">Admin Login</a> </li>
+										@if(User.Identity.IsAuthenticated){
+
+											<li> <a href="/auth/logout">Logout</a> </li>
+										}else{
+
+											<li> <a href="/admin/admin/login">Admin Login</a> </li>
+											<li> <a href="/auth/login">Login</a> </li>
+										}
 										<!-- eof contacts -->
 									</ul>
 								</nav>
