@@ -34,7 +34,8 @@ namespace XYZ_Pharmaceuticals.Controllers
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Email, candidate.Email),
-                        new Claim(ClaimTypes.NameIdentifier, candidate.ID.ToString())
+                        new Claim(ClaimTypes.NameIdentifier, candidate.ID.ToString()),
+                        new Claim(ClaimTypes.Name, candidate.FullName)
                     };
                     var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var claimPrinciple = new ClaimsPrincipal(claimIdentity);
@@ -65,7 +66,8 @@ namespace XYZ_Pharmaceuticals.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Email, candidate.Email),
-                    new Claim(ClaimTypes.NameIdentifier, candidate.ID.ToString())
+                    new Claim(ClaimTypes.NameIdentifier, candidate.ID.ToString()),
+                    new Claim(ClaimTypes.Name, candidate.FullName)
                 };
                 var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var claimPrinciple = new ClaimsPrincipal(claimIdentity);

@@ -1,4 +1,4 @@
-﻿
+﻿@model Quote
 @{
     ViewData["Title"] = "Contact";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,43 +22,43 @@
 	</div>
 </section>
 <section>
-	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d636.8776242005827!2d105.7799579667148!3d10.033499421349827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0881f9a732075%3A0xfa43fbeb2b00ca73!2sCUSC%20-%20Cantho%20University%20Software%20Center!5e0!3m2!1svi!2s!4v1733753054364!5m2!1svi!2s" width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d636.8776242005827!2d105.7799579667148!3d10.033499421349827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0881f9a732075%3A0xfa43fbeb2b00ca73!2sCUSC%20-%20Cantho%20University%20Software%20Center!5e0!3m2!1svi!2s!4v1733753054364&hl=en" width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </section>
 <section class="ls columns_padding_25 section_padding_top_75 section_padding_bottom_130">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-8 to_animate" data-animation="scaleAppear">
 				<h3>Quote Us</h3>
-				<form class="contact-form row columns_padding_10" method="post" action="Home/Quote">
+				<form class="contact-form row columns_padding_10" method="post" asp-action="Quote">
 					<div class="col-sm-6">
-						<div class="contact-form-name"> <label for="name">Full Name <span class="required">*</span></label> <input type="text" aria-required="true" size="30" value="" name="name" id="name" class="form-control" placeholder="Full Name"> </div>
+						<div class="contact-form-name"> <label for="name">Full Name <span class="required">*</span></label> <input type="text" aria-required="true" size="30" value="" name="FullName" id="FullName" class="form-control" asp-for="FullName" placeholder="Full Name" required> </div>
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" size="30" value="" name="companyName" id="companyName" class="form-control" placeholder="Company Name">
+                        <input type="text" size="30" value="" name="companyName" id="companyName" class="form-control" asp-for="CompanyName" placeholder="Company Name">
                     </div>
 					<div class="col-sm-12">
-						<div class="contact-form-email"> <label for="email">Email address<span class="required">*</span></label> <input type="email" aria-required="true" size="30" value="" name="email" id="email" class="form-control" placeholder="Email Address"> </div>
+						<div class="contact-form-email"> <label for="email">Email address<span class="required">*</span></label> <input type="email" aria-required="true" size="30" value="" name="email" id="email" class="form-control" required asp-for="Email" placeholder="Email Address"> </div>
                     </div>
 					<div class="col-sm-6">
-						<div class="contact-form-phone"> <label for="phone">Phone Number</label> <input type="text" size="30" value="" name="phone" id="phone" class="form-control" placeholder="Phone Number"> </div>
+                        <div class="contact-form-phone"> <label for="phone">Phone Number</label> <input type="number" size="30" value="" name="phone" id="phone" class="form-control" required asp-for="Phone" placeholder="Phone Number"> </div>
 					</div>
                     <div class="col-sm-6">
-                        <input type="text" size="30" value="" name="address" id="address" class="form-control" placeholder="Address">
+						<input type="text" size="30" value="" name="address" id="address" class="form-control" required asp-for="Address" placeholder="Address">
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" size="30" value="" name="city" id="city" class="form-control" placeholder="City">
+						<input type="text" size="30" value="" name="city" id="city" class="form-control" required asp-for="City" placeholder="City">
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" size="30" value="" name="state" id="state" class="form-control" placeholder="State">
+						<input type="text" size="30" value="" name="state" id="state" class="form-control" required asp-for="State" placeholder="State">
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" size="30" value="" name="Country" id="Country" class="form-control" placeholder="Country">
+                        <input type="text" size="30" value="" name="Country" id="Country" class="form-control" required asp-for="Country" placeholder="Country">
                     </div>
 					<div class="col-sm-6">
-                        <input type="text" size="30" value="" name="postalCode" id="postalCode" class="form-control" placeholder="Postal Code">
+                        <input type="number" size="30" value="" name="postalCode" id="postalCode" class="form-control" required asp-for="PostalCode" placeholder="Postal Code">
 					</div>
 					<div class="col-sm-12">
-						<div class="contact-form-message"> <label for="message">Message</label> <textarea aria-required="true" rows="5" cols="45" name="message" id="message" class="form-control" placeholder="Comments"></textarea> </div>
+						<div class="contact-form-message"> <label for="message">Message</label> <textarea aria-required="true" rows="5" cols="45" name="Comments" id="Comments" class="form-control" required asp-for="Comments" placeholder="Comments"></textarea> </div>
 					</div>
 					<div class="col-sm-12">
 						<div class="contact-form-submit topmargin_10"> <button type="submit" id="contact_form_submit" name="contact_submit" class="theme_button color2 inverse min_width_button">Send Message</button> </div>

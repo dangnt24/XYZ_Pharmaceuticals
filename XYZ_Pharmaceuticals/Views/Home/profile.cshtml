@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="padding: 36px">
+    <div class="card">
+        <div class="card-body">
+            <h4>Personal Details</h4>
+            <p><strong>Full Name:</strong> @Model.FullName</p>
+            <p><strong>Email:</strong> @Model.Email</p>
+            <p><strong>Education:</strong> @(Model.EducationDetails ?? "No details provided.")</p>
+            <p>
+                <strong>Resume:</strong>
+                @if (!string.IsNullOrEmpty(Model.Resume))
+                {
+                    <a href="@Model.Resume" target="_blank">Download Resume</a>
+                }
+                else
+                {
+                    <h4 class="mt-4">Upload Resume</h4>
+                    <form asp-action="UploadResume" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="@Model.ID" />
+                        <div class="form-group">
+                            <label for="resume">Select Resume File</label>
+                            <input type="file" id="resume" name="resume" class="form-control" />
+                        </div>
+                        <button type="submit" class="btn btn-success mt-2">Upload</button>
+                    </form>
+                }
+            </p>
+            <a href="/Home/EditProfile/@Model.ID" class="btn btn-primary">Update Profile</a>
+        </div>
+    </div>
+</div>
+
