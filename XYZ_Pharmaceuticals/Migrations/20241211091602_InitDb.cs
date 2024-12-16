@@ -96,19 +96,29 @@ namespace XYZ_Pharmaceuticals.Migrations
                 name: "Quotes",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    QuoteText = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    ValidUntil = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Quotes", x => x.ID);
-                });
+					ID = table.Column<int>(type: "int", nullable: false)
+					.Annotation("SqlServer:Identity", "1, 1"),
+					FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+					CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+					Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+					City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+					State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+					PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+					Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+					Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+					Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+					Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
+					Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+					AdminFeedback = table.Column<string>(type: "nvarchar(max)", nullable: true),
+					CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+					UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+				},
+			constraints: table =>
+			{
+				table.PrimaryKey("PK_QuoteUs", x => x.ID);
+			});
 
-            migrationBuilder.CreateTable(
+			migrationBuilder.CreateTable(
                 name: "JobApplications",
                 columns: table => new
                 {
