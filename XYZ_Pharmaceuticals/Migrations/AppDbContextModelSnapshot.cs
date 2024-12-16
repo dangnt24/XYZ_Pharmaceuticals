@@ -41,14 +41,6 @@ namespace XYZ_Pharmaceuticals.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Admins");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            Email = "admin@gmail.com",
-                            Password = "123123123"
-                        });
                 });
 
             modelBuilder.Entity("XYZ_Pharmaceuticals.Entities.Candidate", b =>
@@ -178,6 +170,9 @@ namespace XYZ_Pharmaceuticals.Migrations
                     b.Property<int>("JobId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ResumeFilePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -274,7 +269,6 @@ namespace XYZ_Pharmaceuticals.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AdminFeedback")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
@@ -293,7 +287,7 @@ namespace XYZ_Pharmaceuticals.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -317,7 +311,6 @@ namespace XYZ_Pharmaceuticals.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedDate")

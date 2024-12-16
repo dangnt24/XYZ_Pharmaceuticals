@@ -51,36 +51,7 @@ $(function() {
     });
 
     // total_revenue
-    var options;
-    var data = {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        series: [
-            [201, 680, 350, 302, 410, 405, 570, 400, 505, 620, 350, 900],
-            [101, 580, 380, 322, 210, 405, 430, 480, 545, 720, 550, 728],
-            [58, 89, 102, 201, 210, 310, 258, 268, 349, 120, 98, 105],
-        ],
-        borderColor:"#000",        
-    };    
-    options = {
-        height: "354px",
-        showPoint: true,
-        axisX: {
-            showGrid: false
-        },
-        axisY: {
-            labelInterpolationFnc: function(value) {
-                return (value / 100) + 'K';
-            }
-        },
-        lineSmooth: true,
-        plugins: [
-            Chartist.plugins.tooltip({
-                appendToBody: true
-            }),
-        ]
-    };
-    new Chartist.Line('#total_revenue', data, options);    
-
+    
 
     // notification popup
     toastr.options.closeButton = true;

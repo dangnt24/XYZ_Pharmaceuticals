@@ -1,6 +1,5 @@
 ﻿@{
     ViewData["Title"] = "Career Opportunities";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @* <div class="container mt-5">
@@ -65,12 +64,20 @@
     </div>
 </div>
  *@
-
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
 <!-- Thêm jQuery và Bootstrap JS -->
+@{
+    var jobs = ViewBag.Job as List<Job>;
+}
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script><!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!-- Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<!-- Bootstrap -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
 <div class="container mt-5">
     <h1 class="text-center">Join Our Team</h1>
     <p class="text-center">We are always looking for talented individuals to join our dynamic team. Explore our current job openings below and apply today!</p>
@@ -81,31 +88,35 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Position</th>
-                        <th>Description</th>
+                        <th>JobTitle</th>
+                        <th>Department</th>
+                        <th>JobDescription</th>
+                        <th>Requirements</th>
+                        <th>SalaryRange</th>
                         <th>Location</th>
-                        <th>Apply</th>
+                        <th>Status</th>
+                        <th>PostedDate</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Software Engineer</td>
-                        <td>Developing and maintaining web applications</td>
-                        <td>New York, NY</td>
-                        <td><a href="#applyModal" class="btn btn-primary" data-toggle="modal">Apply Now</a></td>
-                    </tr>
-                    <tr>
-                        <td>Product Manager</td>
-                        <td>Oversee the development of new products</td>
-                        <td>San Francisco, CA</td>
-                        <td><a href="#applyModal" class="btn btn-primary" data-toggle="modal">Apply Now</a></td>
-                    </tr>
-                    <tr>
-                        <td>UX/UI Designer</td>
-                        <td>Designing user interfaces and experiences</td>
-                        <td>Los Angeles, CA</td>
-                        <td><a href="#applyModal" class="btn btn-primary" data-toggle="modal">Apply Now</a></td>
-                    </tr>
+                    @foreach (var item in jobs)
+                    {
+                        <tr>
+                            <td>@item.JobTitle</td>
+                            <td>@item.Department</td>
+                            <td>@item.JobDescription</td>
+                            <td>@item.Requirements</td>
+                            <td>@item.SalaryRange</td>
+                            <td>@item.Location</td>
+                            <td>@item.Status</td>
+                            <td>@item.PostedDate.ToShortDateString()</td>
+                            <td>
+                                <a href="#applyModal" class="btn btn-primary" onclick="openModal(@item.ID)">Apply Now</a>
+
+                            </td>
+                        </tr>
+                    }
+
                 </tbody>
             </table>
         </div>
@@ -117,24 +128,17 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="applyModalLabel">Apply for a Job</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" aria-label="Close" onclick="closeModal()">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="fullName">Full Name</label>
-                            <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" />
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email address</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter your email" />
-                        </div>
+                    <form id="jobApplicationForm" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="resume">Upload Resume</label>
-                            <input type="file" class="form-control" id="resume" />
+                            <input type="file" class="form-control" id="file" name="file" required />
                         </div>
+                        <input type="hidden" name="JobId" id="jobId" value="" />
                         <button type="submit" class="btn btn-success">Submit Application</button>
                     </form>
                 </div>
@@ -142,3 +146,94 @@
         </div>
     </div>
 </div>
+
+<script>
+        function closeModal() {
+        const modal = document.getElementById("applyModal");
+
+        // Hide the modal
+        modal.style.display = "none";
+
+        // Remove 'show' class if present
+        modal.classList.remove("show");
+
+        // Update ARIA attributes for accessibility
+        modal.setAttribute("aria-hidden", "true");
+    }
+
+    // Open modal and set Job ID
+    function openModal(jobId) {
+        // Set the hidden JobId field
+        document.getElementById("jobId").value = jobId;
+        // Show the modal
+        const modal = document.getElementById("applyModal");
+        modal.style.display = "block";
+        modal.classList.add("show");
+        modal.setAttribute("aria-hidden", "false");
+    }
+    // Attach event listener for form submission
+                           document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("jobApplicationForm");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            // Create FormData object
+            const formData = new FormData(form);
+
+            // Append JobId to FormData
+            const jobId = document.getElementById("jobId").value;
+            formData.append("JobId", jobId);
+
+            // Perform the AJAX request
+            fetch("/home/Carrer", {
+                method: "POST",
+                body: formData,
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        // Handle non-200 HTTP responses
+                        return response.json().then((data) => {
+                            throw new Error(data.message || "An error occurred");
+                        });
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    if (!data.success) {
+                        // Handle application-specific errors
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Submission Failed",
+                            text: data.message,
+                            confirmButtonText: "OK",
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Application Submitted",
+                            text: data.message,
+                            confirmButtonText: "OK",
+                        }).then(() => {
+                            closeModal(); // Close the modal
+                            form.reset(); // Reset the form
+                        });
+                    }
+                })
+                .catch((error) => {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Submission Failed",
+                        text: error.message,
+                        confirmButtonText: "OK",
+                    });
+                    console.error(error);
+                });
+        });
+
+        // Add close functionality to modal close button
+        const closeButton = document.querySelector(".modal .close");
+        closeButton.addEventListener("click", closeModal);
+    });
+
+</script>

@@ -31,8 +31,7 @@
                                     <th>Job Title</th>
                                     <th>Candidate Full Name</th>
                                     <th>Email</th>
-                                    <th>Resume</th>
-                                    <th>Status</th>
+                                    <th>Resume</th> 
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -43,8 +42,7 @@
                                         <td>@jobApplication.Job.JobTitle</td>
                                         <td>@jobApplication.Candidate.FullName</td>
                                         <td>@jobApplication.Candidate.Email</td>
-                                        <td><a href="@jobApplication.Candidate.Resume" target="_blank">Download Resume</a></td>
-                                        <td>@jobApplication.Status</td>
+                                        <td><a href="@jobApplication.ResumeFilePath" download="">Download Resume</a></td>
                                         <td>
                                             <!-- Action buttons like Edit, Delete, Email -->
                                             <button class="btn btn-primary btn-sm" onclick="openEmailModal('@jobApplication.Candidate.Email', '@jobApplication.Candidate.FullName')">

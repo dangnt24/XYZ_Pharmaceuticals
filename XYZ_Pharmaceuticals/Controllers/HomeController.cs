@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -41,7 +42,69 @@ namespace XYZ_Pharmaceuticals.Controllers
 
         public IActionResult Career()
         {
+            ViewBag.Job = _context.Jobs.ToList();
             return View();
+        }
+        [HttpPost]
+        public IActionResult Carrer(JobApplication jobApplication, IFormFile file)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { message = "Invalid application details." });
+            }
+
+            try
+            {
+                // Check if the user is authenticated
+                var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (userId == null)
+                {
+                    return Json(new { success = false, message = "You need to log in to apply for this job." });
+                }
+
+                // Check if the user has already applied for this job
+                var candidateId = int.Parse(userId);
+                var checkExist = _context.JobApplications.FirstOrDefault(f => f.CandidateId == candidateId && f.JobId == jobApplication.JobId);
+                if (checkExist != null)
+                {
+                    return Json(new { success = false, message = "You have already applied for this job!" });
+                }
+
+                // Handle file upload
+                if (file != null && file.Length > 0)
+                {
+                    var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/resumes");
+                    if (!Directory.Exists(uploadPath))
+                    {
+                        Directory.CreateDirectory(uploadPath);
+                    }
+
+                    var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
+                    var filePath = Path.Combine(uploadPath, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    jobApplication.ResumeFilePath = $"/resumes/{fileName}";
+                }
+
+                // Save the job application
+                jobApplication.CandidateId = candidateId;
+                jobApplication.Status = "Pending";
+                _context.JobApplications.Add(jobApplication);
+                _context.SaveChanges();
+
+                return Ok(new { success = true, message = "Application submitted successfully." });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (optional)
+                Console.WriteLine(ex.Message);
+
+                return StatusCode(500, new { success = false, message = "An error occurred while processing your application." });
+            }
         }
 
         public IActionResult ChangePassword()
@@ -132,7 +195,6 @@ namespace XYZ_Pharmaceuticals.Controllers
 
         // POST: UserProfile/Edit
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,FullName,Email,EducationDetails, Resume")] Candidate profile)
         {
             if (id != profile.ID)
