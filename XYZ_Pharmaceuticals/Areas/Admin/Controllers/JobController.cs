@@ -25,6 +25,18 @@ namespace XYZ_Pharmaceuticals.Areas.Admin.Controllers
         {
             return View(_context.JobApplications.Include(c => c.Candidate).Include(ja => ja.Job).ToList());
         }
+        public IActionResult deleteCandidate(int id)
+        {
+            var JobCandidate = _context.JobApplications.FirstOrDefault(j => j.ID == id);
+            if (JobCandidate == null)
+            {
+                return NotFound();
+            }
+            _context.Remove(JobCandidate);
+            _context.SaveChanges();
+
+            return RedirectPermanent("/admin/job/candidate");
+        }
         // GET: Admin/Job/Create
         public IActionResult Create()
         {

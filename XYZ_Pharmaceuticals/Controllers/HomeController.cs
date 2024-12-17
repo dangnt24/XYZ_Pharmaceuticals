@@ -204,7 +204,7 @@ namespace XYZ_Pharmaceuticals.Controllers
 
         // POST: UserProfile/Edit
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FullName,Email,EducationDetails, Resume")] Candidate profile)
+        public async Task<IActionResult> Edit(int id, IFormFile file, Candidate profile)
         {
             if (id != profile.ID)
             {
@@ -215,9 +215,24 @@ namespace XYZ_Pharmaceuticals.Controllers
             {
                 try
                 {
+                    if (file != null)
+                    {
+                        var uploadPath = Path.Combine(_environment.WebRootPath, "resumes");
+                        Directory.CreateDirectory(uploadPath); // Ensure directory exists
+
+                        var fileName = $"{id}_{Path.GetFileName(file.FileName)}";
+                        var filePath = Path.Combine(uploadPath, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+
+                        profile.Resume = $"/resumes/{fileName}";
+                    }
                     _context.Update(profile);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index), new { id = profile.ID });
+                    return Redirect("/Home/Profile");
                 }
                 catch (DbUpdateConcurrencyException)
                 {

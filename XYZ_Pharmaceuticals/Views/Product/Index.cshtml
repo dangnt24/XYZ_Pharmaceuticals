@@ -18,13 +18,14 @@
                     <ul id="products" class="products list-unstyled">
                         @foreach (var item in Model)
                         {
-                            <li class="product type-product">
+                            <li class="product type-product" style="margin: 30px 12px; height: 579px; width: 360px;">
                                 <div class="vertical-item content-padding text-center with_border">
-                                    <div class="item-media muted_background bottommargin_30">
+                                    <div class="item-media muted_background bottommargin_30 with_border" style="border-bottom: 0">
                                         <img src="@item.Image" alt="@item.ProductName" style="width: 100%; height: 300px; object-fit: cover;" />
 
                                     </div>
-                                    <div class="item-content">
+                                    <div class="item-content" style="display: flex; flex-direction: column; justify-content: space-between; height: 320px">
+                                        <div>
                                         <h4 class="hover-color2 bottommargin_0">
                                             <a href="shop-product-right.html">@item.ProductName</a>
                                         </h4>
@@ -34,7 +35,9 @@
                                                 <span class="amount">$@item.ShippingWeight</span>
                                             </ins>
                                         </p>
+                                        </div>
 
+                                        <div>
                                         @if (item.CategoryID == 1)
                                         {
                                             <p><strong>Output:</strong> @item.Output</p>
@@ -51,8 +54,9 @@
                                             <p><strong>Filling Speed:</strong> @item.FillingSpeed</p>
                                             <p><strong>Filling Type:</strong> @item.FillingType</p>
                                         }
+                                        </div>
 
-                                        <p class="topmargin_30">
+                                        <p class="topmargin_30" style="display: block">
                                             <a href="/product/detail/@item.ID" class="theme_button color2 inverse min_width_button">Detail</a>
                                             </p>
                                     </div>

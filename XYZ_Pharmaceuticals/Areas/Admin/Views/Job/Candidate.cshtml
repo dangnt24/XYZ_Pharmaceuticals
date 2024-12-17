@@ -48,6 +48,7 @@
                                             <button class="btn btn-primary btn-sm" onclick="openEmailModal('@jobApplication.Candidate.Email', '@jobApplication.Candidate.FullName')">
                                                 <i class="fas fa-envelope"></i> Email
                                             </button>
+                                            <a onclick="return confirm('Are you sure delete this Candidate?')" href="/admin/job/deleteCandidate/@jobApplication.ID" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 }
