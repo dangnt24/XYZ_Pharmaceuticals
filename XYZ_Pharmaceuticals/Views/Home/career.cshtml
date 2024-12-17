@@ -105,7 +105,7 @@
                             <td>@item.Status</td>
                             <td>@item.PostedDate.ToShortDateString()</td>
                             <td>
-                                <a href="#" id="btnApply" class="btn apply-btn" data-toggle="modal" data-jobid="@item.ID">Apply Now</a>
+                                <a href="#" class="btn apply-btn btnApply" data-toggle="modal" data-jobid="@item.ID">Apply Now</a>
                             </td>
                         </tr>
                     }
@@ -156,10 +156,8 @@
     // Submit the application form using AJAX
     document.addEventListener("DOMContentLoaded", function () {
         const form = document.getElementById("jobApplicationForm");
-        const btnApply = document.getElementById("btnApply");
-        const jobID = btnApply.getAttribute("data-jobid");
 
-        btnApply.addEventListener("click", function (e) {
+        $(".btnApply").on("click", function (e) {
             e.preventDefault();
 
             // Thêm hộp thoại xác nhận trước khi gửi
@@ -182,7 +180,7 @@
                             "Content-Type": "application/json" 
                         },
                         body: JSON.stringify({
-                            JobID: jobID
+                            JobID: e.target.getAttribute("data-jobid")
                         }),
                     })
                         .then((response) => response.json())
