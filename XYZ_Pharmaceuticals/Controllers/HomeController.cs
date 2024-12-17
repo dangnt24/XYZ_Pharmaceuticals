@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 using System.Security.Claims;
 using XYZ_Pharmaceuticals.Entities;
@@ -46,7 +47,7 @@ namespace XYZ_Pharmaceuticals.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Carrer(JobApplication jobApplication, IFormFile file)
+        public IActionResult Carrer([FromBody] JobApplication jobApplication)
         {
             if (!ModelState.IsValid)
             {
@@ -56,39 +57,47 @@ namespace XYZ_Pharmaceuticals.Controllers
             try
             {
                 // Check if the user is authenticated
+                //var jobApplication = new JobApplication();
+                //jobApplication.JobId = (int) data.JobId;
                 var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 if (userId == null)
                 {
-                    return Json(new { success = false, message = "You need to log in to apply for this job." });
+                    return Json(new { success = false, redirectToLogin = true, message = "You need to log in to apply for this job." });
                 }
 
                 // Check if the user has already applied for this job
                 var candidateId = int.Parse(userId);
+                var candidate = _context.Candidates.FirstOrDefault(c => c.ID == candidateId);
                 var checkExist = _context.JobApplications.FirstOrDefault(f => f.CandidateId == candidateId && f.JobId == jobApplication.JobId);
                 if (checkExist != null)
                 {
                     return Json(new { success = false, message = "You have already applied for this job!" });
+                } 
+
+                if (candidate == null || candidate.Resume.IsNullOrEmpty() || candidate.EducationDetails.IsNullOrEmpty())
+                {
+                    return Json(new { success = false, redirectToUpdateProfile = true, message = "Your profile is not complete!" });
                 }
 
                 // Handle file upload
-                if (file != null && file.Length > 0)
-                {
-                    var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/resumes");
-                    if (!Directory.Exists(uploadPath))
-                    {
-                        Directory.CreateDirectory(uploadPath);
-                    }
+                //if (file != null && file.Length > 0)
+                //{
+                //    var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/resumes");
+                //    if (!Directory.Exists(uploadPath))
+                //    {
+                //        Directory.CreateDirectory(uploadPath);
+                //    }
 
-                    var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
-                    var filePath = Path.Combine(uploadPath, fileName);
+                //    var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
+                //    var filePath = Path.Combine(uploadPath, fileName);
 
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
-                    }
+                //    using (var stream = new FileStream(filePath, FileMode.Create))
+                //    {
+                //        file.CopyTo(stream);
+                //    }
 
-                    jobApplication.ResumeFilePath = $"/resumes/{fileName}";
-                }
+                //    jobApplication.ResumeFilePath = $"/resumes/{fileName}";
+                //}
 
                 // Save the job application
                 jobApplication.CandidateId = candidateId;
@@ -252,6 +261,37 @@ namespace XYZ_Pharmaceuticals.Controllers
 
             return RedirectToAction(nameof(Profile), new { id });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteResume(int id)
+        {
+            var profile = await _context.Candidates.FindAsync(id);
+            if (profile == null)
+            {
+                return NotFound();
+            }
+
+            // Kiểm tra xem có resume nào không
+            if (!string.IsNullOrEmpty(profile.Resume))
+            {
+                var filePath = Path.Combine(_environment.WebRootPath, profile.Resume.TrimStart('/'));
+
+                // Xóa file resume khỏi hệ thống nếu tồn tại
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+
+                // Cập nhật trường Resume thành rỗng trong cơ sở dữ liệu
+                profile.Resume = "";
+                _context.Update(profile);
+                await _context.SaveChangesAsync();
+            }
+
+            // Sau khi xóa, chuyển hướng về trang profile
+            return RedirectToAction(nameof(Profile));
+        }
+
 
         public IActionResult Privacy()
         {
