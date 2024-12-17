@@ -15,6 +15,7 @@
                 @if (!string.IsNullOrEmpty(Model.Resume))
                 {
                     <a href="@Model.Resume" target="_blank">Download Resume</a>
+                    <a onclick="return confirm('Are you sure delete this Resume?')" style="margin-left: 12px" href="/Home/DeleteResume/@Model.ID"><i class="fa-solid fa-trash text-danger"></i></a>
                 }
                 else
                 {
