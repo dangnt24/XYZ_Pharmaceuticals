@@ -27,13 +27,6 @@ public class AppDbContext : DbContext
             new Category { ID = 2, CategoryName = "Liquid Filling" },
             new Category { ID = 3, CategoryName = "Capsule/Encapsulation" }
         );
-        modelBuilder.Entity<Admin>().HasData(
-           new Admin
-           {
-               ID = 1,
-               Email = "admin@gmail.com",
-               Password = "123123123" 
-           });
         base.OnModelCreating(modelBuilder);
     }
 }

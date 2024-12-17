@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace XYZ_Pharmaceuticals.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDb : Migration
+    public partial class Initdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,15 +34,28 @@ namespace XYZ_Pharmaceuticals.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Resume = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PersonalDetails = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EducationDetails = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Resume = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PersonalDetails = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EducationDetails = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Candidates", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,11 +71,37 @@ namespace XYZ_Pharmaceuticals.Migrations
                     SalaryRange = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PostedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    PostedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Jobs", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Quotes",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Comments = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdminFeedback = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Quotes", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,12 +111,12 @@ namespace XYZ_Pharmaceuticals.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Output = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CapsuleSize = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MachineDimension = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Output = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CapsuleSize = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MachineDimension = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShippingWeight = table.Column<float>(type: "real", nullable: true),
-                    ModelNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Dies = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ModelNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Dies = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MaxPressure = table.Column<float>(type: "real", nullable: true),
                     MaxDiameter = table.Column<float>(type: "real", nullable: true),
                     MaxDepth = table.Column<float>(type: "real", nullable: true),
@@ -84,41 +125,22 @@ namespace XYZ_Pharmaceuticals.Migrations
                     AirVolume = table.Column<float>(type: "real", nullable: true),
                     FillingSpeed = table.Column<int>(type: "int", nullable: true),
                     FillingRange = table.Column<float>(type: "real", nullable: true),
-                    FillingType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    FillingType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CategoryID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Products_Categories_CategoryID",
+                        column: x => x.CategoryID,
+                        principalTable: "Categories",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Quotes",
-                columns: table => new
-                {
-					ID = table.Column<int>(type: "int", nullable: false)
-					.Annotation("SqlServer:Identity", "1, 1"),
-					FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-					CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-					Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-					City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-					State = table.Column<string>(type: "nvarchar(max)", nullable: true),
-					PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-					Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
-					Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-					Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-					Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
-					Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
-					AdminFeedback = table.Column<string>(type: "nvarchar(max)", nullable: true),
-					CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-					UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-				},
-			constraints: table =>
-			{
-				table.PrimaryKey("PK_QuoteUs", x => x.ID);
-			});
-
-			migrationBuilder.CreateTable(
                 name: "JobApplications",
                 columns: table => new
                 {
@@ -126,7 +148,8 @@ namespace XYZ_Pharmaceuticals.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CandidateId = table.Column<int>(type: "int", nullable: false),
                     JobId = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ResumeFilePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -145,6 +168,16 @@ namespace XYZ_Pharmaceuticals.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "ID", "CategoryName" },
+                values: new object[,]
+                {
+                    { 1, "Tablet" },
+                    { 2, "Liquid Filling" },
+                    { 3, "Capsule/Encapsulation" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Candidates_Email",
                 table: "Candidates",
@@ -160,6 +193,11 @@ namespace XYZ_Pharmaceuticals.Migrations
                 name: "IX_JobApplications_JobId",
                 table: "JobApplications",
                 column: "JobId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CategoryID",
+                table: "Products",
+                column: "CategoryID");
         }
 
         /// <inheritdoc />
@@ -182,6 +220,9 @@ namespace XYZ_Pharmaceuticals.Migrations
 
             migrationBuilder.DropTable(
                 name: "Jobs");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }

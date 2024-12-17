@@ -12,8 +12,8 @@ using XYZ_Pharmaceuticals.Models;
 namespace XYZ_Pharmaceuticals.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241215014150_test")]
-    partial class test
+    [Migration("20241216023721_Init-db")]
+    partial class Initdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,14 +44,6 @@ namespace XYZ_Pharmaceuticals.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Admins");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            Email = "admin@gmail.com",
-                            Password = "123123123"
-                        });
                 });
 
             modelBuilder.Entity("XYZ_Pharmaceuticals.Entities.Candidate", b =>
@@ -181,6 +173,9 @@ namespace XYZ_Pharmaceuticals.Migrations
                     b.Property<int>("JobId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ResumeFilePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -272,18 +267,56 @@ namespace XYZ_Pharmaceuticals.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("QuoteText")
+                    b.Property<string>("AdminFeedback")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Comments")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("ValidUntil")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
